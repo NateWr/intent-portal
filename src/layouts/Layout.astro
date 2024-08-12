@@ -59,5 +59,11 @@ const { title, description } = Astro.props;
 	</body>
 </html>
 <style is:global>
-	@import "../assets/css/main.css"
+	@import "../assets/css/variables.css";
+	@import "../assets/css/utilities/focus-visible.css";
+	@import "../assets/css/utilities/link.css";
+
+	body {
+		background: var(--bg-grey);
+	}
 </style>

@@ -9,4 +9,19 @@ civilianHarm: Civilian Harm
 starvation: Starvation
 destructionInfrastructure: Destruction of infrastructure
 annexationDisplacement: Annexation/Forced Displacement
+sectors: Sectors
+armed-forces: Armed Forces
+decisionMakers: Decision Makers
+legislators: Legislators
+publicFigures: Public Figures
+formerGovernment: Former Government
+media: Media
+other: Other
+statements: Statements
+noStatementsFound: No statements were found matching these parameters.
+showAll: Show all
+filter: Filter
+close: Close
+searchAndFilter: Search and Filter
+loading: Loading
 ---
