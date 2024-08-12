@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import App from '../components/App.vue';
+import * as i18n from '../i18n/en.md'
+
+const title = [
+	i18n.frontmatter.title,
+	i18n.frontmatter.descriptionShort,
+	'Law for Palestine'
+].join(' - ')
+---
+
+<Layout
+	{title}
+	description={i18n.frontmatter.description}
+>
+	<App
+		client:only="vue"
+		i18n={i18n.frontmatter}
+	/>
+</Layout>
