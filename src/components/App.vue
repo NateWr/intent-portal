@@ -23,7 +23,6 @@ onMounted(() => {
   fetch('/statements.json')
     .then(r => {
       if (!r.ok) {
-        console.log('wtf')
         throw new Error()
       }
       return r

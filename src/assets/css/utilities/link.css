@@ -1,4 +1,6 @@
 .link {
   color: var(--red);
   font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
 }
