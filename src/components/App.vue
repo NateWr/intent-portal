@@ -21,7 +21,10 @@ const { getI18N, setI18N } = useI18N()
 setI18N(props.i18n)
 const i18n = getI18N()
 
-const { sectors, themes } = useFilters(i18n)
+const { persons, sectors, themes } = useFilters(i18n, statements)
+
+const searchPhrase = ref<string>('')
+const personSearchPhrase = ref<string>('')
 
 onMounted(() => {
   fetch('/statements.json')
@@ -82,6 +85,38 @@ onMounted(() => {
             {{ sector.title }}
           </li>
         </ul>
+      </div>
+      <div class="flex flex-col gap-2">
+        <h3>{{ i18n.persons }}</h3>
+        <div>{{ i18n.findPersons }}</div>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            name="search"
+            v-model="personSearchPhrase"
+            :placeholder="i18n.searchByName"
+          >
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <h3>
+          {{ i18n.orderBy }}
+        </h3>
+        <div class="flex gap-2">
+          <button>{{ i18n.oldest }}</button>
+          <button>{{ i18n.newest }}</button>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <h3>{{ i18n.search }}</h3>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            name="search"
+            v-model="searchPhrase"
+            :placeholder="i18n.searchStatements"
+          >
+        </div>
       </div>
     </div>
   </PageHeader>

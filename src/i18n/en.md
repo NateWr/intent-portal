@@ -17,11 +17,19 @@ publicFigures: Public Figures
 formerGovernment: Former Government
 media: Media
 other: Other
+persons: Persons
+findPersons: Find statements from an individual.
+searchByName: Search by name
 statements: Statements
 noStatementsFound: No statements were found matching these parameters.
+orderBy: Order By
+oldest: Oldest
+newest: Newest
 showAll: Show all
 filter: Filter
 close: Close
+search: Search
+searchStatements: Search statements
 searchAndFilter: Search and Filter
 loading: Loading
 ---

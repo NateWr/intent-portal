@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import debounce from 'debounce'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import IconFilter from './icons/Filter.vue'
 import { useI18N } from '../utilities/useI18N'
 
@@ -11,9 +11,18 @@ const props = defineProps({
 const isDesktop = () => document.body.clientWidth >= 1280
 const showMenu = ref<boolean>(isDesktop())
 
+const setBodyOverflow = (value: boolean) => {
+  if (value && !isDesktop()) {
+    document.body.classList.add('overflow-hidden')
+  } else {
+    document.body.classList.remove('overflow-hidden')
+  }
+}
+
 const { getI18N } = useI18N()
 const i18n = getI18N()
 
+watch(showMenu, setBodyOverflow)
 
 onMounted(() => {
   window.addEventListener('resize', debounce(() => {
@@ -85,6 +94,7 @@ onMounted(() => {
   top: 3rem;
   width: 100%;
   max-height: calc(100vh - 3rem);
+  overflow-y: scroll;
   transition: all 0.3s;
   transform-origin: top right;
   transform: scale(1);
@@ -104,29 +114,17 @@ onMounted(() => {
 
   .header {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 20rem;
     height: 100vh;
-    padding: 1.5rem;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 2rem;
   }
 
   .header-button {
     display: none;
-  }
-
-  .header {
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 20rem;
-    padding: 1.5rem;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
   }
 
   .header-logo {
@@ -135,6 +133,7 @@ onMounted(() => {
       width: 100%;
       height: auto;
       margin: 0;
+      padding: 1.5rem;
     }
   }
 
@@ -145,7 +144,7 @@ onMounted(() => {
     width: auto;
     height: auto;
     border: none;
-    padding: 0;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;

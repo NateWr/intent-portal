@@ -1,8 +1,9 @@
-import { ref, type Ref } from "vue";
+import { computed, ref, type Ref } from "vue";
 import type { I18N } from "../types/i18n";
 import type { Filter } from "../types/filter";
+import type { Statement } from "../types/statement";
 
-export const useFilters = (i18n: Ref<I18N>) => {
+export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
 
   const themes = ref<Filter[]>([
     {
@@ -54,7 +55,24 @@ export const useFilters = (i18n: Ref<I18N>) => {
     },
   ])
 
+  const persons = computed(() => {
+    return [
+      ...new Set(
+        statements.value.map(statement => statement.person)
+      )
+    ]
+    .sort()
+    .map(name => {
+      return {
+        slug: name,
+        title: name,
+      }
+    })
+
+  })
+
   return {
+    persons,
     sectors,
     themes,
   }
