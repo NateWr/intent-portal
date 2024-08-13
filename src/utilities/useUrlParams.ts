@@ -15,10 +15,10 @@ export const useUrlParams = (
   const urlParams = computed(() => {
     let params : Params = {}
     if (selectedThemeSlugs.value.length) {
-      params.t = selectedThemeSlugs.value.join(',')
+      params.t = selectedThemeSlugs.value.join('|')
     }
     if (selectedSectorSlugs.value.length) {
-      params.s = selectedSectorSlugs.value.join(',')
+      params.s = selectedSectorSlugs.value.join('|')
     }
     if (searchPhrase.value.trim().length) {
       params.q = searchPhrase.value.trim()

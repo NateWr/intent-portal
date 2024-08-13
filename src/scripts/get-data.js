@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { google } from 'googleapis'
 import { spreadsheetId, getCredentials } from './helpers/google.js'
+import slugify from '@sindresorhus/slugify'
 
 const scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 const auth = getCredentials(scopes)
@@ -32,9 +33,9 @@ const statements = rows.slice(1)
       date: statement[getCol('Date')] ?? '',
       person: statement[getCol('Author')] ?? '',
       position: statement[getCol('Position')] ?? '',
-      sector: statement[getCol('Sector')] ?? '',
+      sector: slugify(statement[getCol('Sector')] ?? ''),
       details: statement[getCol('Details')] ?? '',
-      themes: statement[getCol('Themes')]?.split(',')?.map((theme) => theme.trim()) ?? [],
+      themes: statement[getCol('Themes')]?.split(',')?.map((theme) => slugify(theme)) ?? [],
       permalink: statement[getCol('Permalink')] ?? '',
       sources: [
         statement[getCol('Source')] ?? '',

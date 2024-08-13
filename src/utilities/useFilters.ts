@@ -3,6 +3,7 @@ import type { I18N } from "../types/i18n";
 import type { Filter } from "../types/filter";
 import type { Statement } from "../types/statement";
 import debounce from "debounce";
+import slugify from "@sindresorhus/slugify";
 
 export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
 
@@ -20,7 +21,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
       title: i18n.value?.destructionInfrastructure ?? '',
     },
     {
-      slug: 'displacement',
+      slug: 'forced-displacement',
       title: i18n.value?.annexationDisplacement ?? '',
     }
   ])
@@ -65,7 +66,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
     .sort()
     .map(name => {
       return {
-        slug: name,
+        slug: slugify(name),
         title: name,
       }
     })
@@ -96,10 +97,10 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
   const selectedStatements = computed(() => {
     return statements.value
       .filter(statement => {
-        if (selectedSectors.value.length && !selectedSectors.value.find(s => s.title === statement.sector)) {
+        if (selectedSectors.value.length && !selectedSectorSlugs.value.includes(statement.sector)) {
           return false
         }
-        if (selectedThemes.value.length && !selectedThemes.value.find(t => statement.themes.includes(t.title))) {
+        if (selectedThemes.value.length && !selectedThemeSlugs.value.find((t) => statement.themes.includes(t))) {
           return false
         }
         if (debouncedSearchPhrase.value && !statement.details.includes(debouncedSearchPhrase.value)) {

@@ -56,7 +56,7 @@ onMounted(() => {
     })
     .then(r => r.json())
     .then(data => {
-      statements.value = data.slice(0, 10)
+      statements.value = data.slice(0, 100)
     })
     .finally(() => {
       isLoading.value = false
@@ -137,8 +137,10 @@ onMounted(() => {
   </PageHeader>
   <section class="toolbar flex item-center gap-8">
     <h2 class="sr-only"></h2>
-    <div class="toolbar-count">
-      <span><strong>312 of 493</strong> entries</span>
+    <div v-if="selectedStatements.length < statements.length" class="toolbar-count" role="alert">
+      <span>
+        <strong>{{ selectedStatements.length }} of {{ statements.length }}</strong> entries
+      </span>
       <button>{{ i18n.showAll }}</button>
     </div>
     <div class="toolbar-order">
