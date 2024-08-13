@@ -63,13 +63,15 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
         statements.value.map(statement => statement.person)
       )
     ]
-    .sort()
     .map(name => {
+      const count = statements.value.filter(s => s.person === name).length
       return {
         slug: slugify(name),
-        title: name,
+        title: `${name} (${count})`,
+        count,
       }
     })
+    .sort((a, b) => b.count - a.count)
   })
 
   const selectedThemes = ref<Filter[]>([])
@@ -78,6 +80,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
   const selectedSectorSlugs = computed(() => selectedSectors.value.map(filter => filter.slug))
   const selectedPersons = ref<Filter[]>([])
   const selectedPersonSlugs = computed(() => selectedPersons.value.map(filter => filter.slug))
+  const selectedPersonTitles = computed(() => selectedPersons.value.map(filter => filter.title.replaceAll(/\s\([0-9]*\)*$/gi, '')))
   const searchPhrase = ref('')
   const debouncedSearchPhrase = ref('')
 
@@ -104,6 +107,9 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
           return false
         }
         if (selectedThemes.value.length && !selectedThemeSlugs.value.find((t) => statement.themes.includes(t))) {
+          return false
+        }
+        if (selectedPersonTitles.value.length && !selectedPersonTitles.value.includes(statement.person)) {
           return false
         }
         if (debouncedSearchPhrase.value && !statement.details.includes(debouncedSearchPhrase.value)) {

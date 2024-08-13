@@ -51,6 +51,7 @@ const {
 const { queryString } = useUrlParams(
   selectedThemeSlugs,
   selectedSectorSlugs,
+  selectedPersonSlugs,
   debouncedSearchPhrase,
 )
 

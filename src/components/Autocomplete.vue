@@ -7,6 +7,8 @@ import IconSearch from './icons/IconSearch.vue'
 import { useI18N } from '../utilities/useI18N'
 import type { Filter } from '../types/filter'
 
+const MAX_OPTIONS = 10
+
 const props = defineProps({
   name: String,
   options: {
@@ -44,7 +46,7 @@ const matchingOptions = computed(() => {
       return !props.selectedOptionSlugs.includes(o.slug)
         && o.title.toLowerCase().includes(searchPhrase.value.toLowerCase())
     })
-    .slice(0, 10)
+    .slice(0, MAX_OPTIONS)
 })
 
 const input = ref<HTMLInputElement|null>(null)

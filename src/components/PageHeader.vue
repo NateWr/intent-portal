@@ -148,6 +148,8 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    /* Allow space for the autocomplete dropdown (@see MAX_OPTIONS in Autocomplete.vue) */
+    padding-bottom: 320px;
   }
 }
 </style>

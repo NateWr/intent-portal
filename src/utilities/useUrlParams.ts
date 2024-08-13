@@ -1,14 +1,16 @@
 import { computed, watch, type Ref } from "vue";
 
 type Params = {
-  t?: string,
-  s?: string,
+  p?: string,
   q?: string,
+  s?: string,
+  t?: string,
 }
 
 export const useUrlParams = (
   selectedThemeSlugs: Ref<string[]>,
   selectedSectorSlugs: Ref<string[]>,
+  selectedPersonSlugs: Ref<string[]>,
   searchPhrase: Ref<string>,
 ) => {
 
@@ -19,6 +21,9 @@ export const useUrlParams = (
     }
     if (selectedSectorSlugs.value.length) {
       params.s = selectedSectorSlugs.value.join('|')
+    }
+    if (selectedPersonSlugs.value.length) {
+      params.p = selectedPersonSlugs.value.join('|')
     }
     if (searchPhrase.value.trim().length) {
       params.q = searchPhrase.value.trim()
