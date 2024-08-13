@@ -76,9 +76,10 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
   const selectedThemeSlugs = computed(() => selectedThemes.value.map(filter => filter.slug))
   const selectedSectors = ref<Filter[]>([])
   const selectedSectorSlugs = computed(() => selectedSectors.value.map(filter => filter.slug))
+  const selectedPersons = ref<Filter[]>([])
+  const selectedPersonSlugs = computed(() => selectedPersons.value.map(filter => filter.slug))
   const searchPhrase = ref('')
   const debouncedSearchPhrase = ref('')
-  const personSearchPhrase = ref('')
 
   const clearFilter = (selectedFilters: Ref<Filter[]>) => selectedFilters.value = []
   const toggleFilter = (filter: Filter, selectedFilters: Ref<Filter[]>, selectedFilterSlugs: ComputedRef<string[]>) => {
@@ -89,6 +90,8 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
     }
   }
 
+  const clearPerson = () => clearFilter(selectedPersons)
+  const togglePerson = (person: Filter) => toggleFilter(person, selectedPersons, selectedPersonSlugs)
   const clearTheme = () => clearFilter(selectedThemes)
   const toggleTheme = (theme: Filter) => toggleFilter(theme, selectedThemes, selectedThemeSlugs)
   const clearSector = () => clearFilter(selectedSectors)
@@ -116,14 +119,17 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
     persons,
     sectors,
     themes,
+    selectedPersons,
+    selectedPersonSlugs,
     selectedSectors,
     selectedSectorSlugs,
     selectedThemes,
     selectedThemeSlugs,
     searchPhrase,
     debouncedSearchPhrase,
-    personSearchPhrase,
     selectedStatements,
+    clearPerson,
+    togglePerson,
     clearTheme,
     toggleTheme,
     clearSector,

@@ -1,5 +1,6 @@
 :root {
   --red: #b81e42;
+  --light-red: #dc2f57;
   --light-grey: #cfb0b9;
   --lightest-grey: #f3ecee;
 
@@ -7,6 +8,7 @@
   --bg: white;
 
   --bg-highlight: var(--red);
+  --bg-highlight-hover: var(--light-red);
   --text-highlight: white;
 
   --text-placeholder: rgba(0, 0, 0, 0.65);

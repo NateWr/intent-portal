@@ -19,7 +19,7 @@
 .input-wrapper {
   position: relative;
 
-  & svg {
+  > svg {
     position: absolute;
     top: 50%;
     left: 0.5rem;
@@ -30,6 +30,7 @@
   }
 
   .input {
+    width: 100%;
     padding-left: 2.25rem;
   }
 }

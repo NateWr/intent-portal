@@ -32,5 +32,9 @@ export type I18N = {
   searchStatements?: string,
   searchAndFilter?: string,
   loading?: string,
-  downloadOrView: string,
+  downloadOrView?: string,
+  selected?: string,
+  autocompleteUnselect?: string,
+  autocompleteInstructions?: string,
+  autocompletePrompt?: string,
 }

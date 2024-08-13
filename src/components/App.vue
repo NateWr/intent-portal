@@ -3,6 +3,7 @@ import { computed, onMounted, ref, type PropType } from 'vue'
 import PageHeader from './PageHeader.vue'
 import StatementPanel from './StatementPanel.vue'
 import FilterGroup from './FilterGroup.vue'
+import Autocomplete from './Autocomplete.vue'
 import Pill from './Pill.vue'
 import IconPeople from './icons/IconPeople.vue'
 import IconSearch from './icons/IconSearch.vue'
@@ -27,16 +28,20 @@ setI18N(props.i18n)
 const i18n = getI18N()
 
 const {
+  persons,
   sectors,
   themes,
+  selectedPersons,
+  selectedPersonSlugs,
   selectedSectors,
   selectedSectorSlugs,
   selectedThemes,
   selectedThemeSlugs,
   searchPhrase,
   debouncedSearchPhrase,
-  personSearchPhrase,
   selectedStatements,
+  clearPerson,
+  togglePerson,
   clearTheme,
   toggleTheme,
   clearSector,
@@ -102,16 +107,14 @@ onMounted(() => {
           {{ i18n.persons }}
         </h3>
         <div class="text-sm font-medium">{{ i18n.findPersons }}</div>
-        <div class="input-wrapper">
-          <IconPeople aria-hidden="true" />
-          <input
-            type="search"
-            name="search"
-            class="input"
-            v-model="personSearchPhrase"
-            :placeholder="i18n.searchByName"
-          >
-        </div>
+        <Autocomplete
+          name="search-persons"
+          :placeholder="i18n.searchByName"
+          :options="persons"
+          :selectedOptions="selectedPersons"
+          :selectedOptionSlugs="selectedPersonSlugs"
+          @toggle="togglePerson"
+        />
       </div>
       <div class="flex flex-col gap-2">
         <h3 class="text-sm font-extrabold uppercase tracking-widest">

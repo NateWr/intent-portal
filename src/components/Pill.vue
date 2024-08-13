@@ -26,6 +26,10 @@ defineProps({
   border-radius: var(--border-rounded);
   text-align: initial;
 
+  &:hover {
+    background: var(--lightest-grey);
+  }
+
   &:focus-visible {
     outline: 2px solid var(--red);
     outline-offset: -2px;
@@ -35,6 +39,10 @@ defineProps({
 .pill-selected {
   color: var(--text-highlight);
   background: var(--bg-highlight);
+
+  &:hover {
+    background: var(--bg-highlight-hover);
+  }
 
   &:focus-visible {
     outline-color: var(--text-highlight);
