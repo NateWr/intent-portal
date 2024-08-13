@@ -31,7 +31,9 @@ const {
   selectedThemes,
   selectedThemeSlugs,
   searchPhrase,
+  debouncedSearchPhrase,
   personSearchPhrase,
+  selectedStatements,
   clearTheme,
   toggleTheme,
   clearSector,
@@ -41,21 +43,8 @@ const {
 const { queryString } = useUrlParams(
   selectedThemeSlugs,
   selectedSectorSlugs,
-  searchPhrase,
+  debouncedSearchPhrase,
 )
-
-const selectedStatements = computed(() => {
-  return statements.value
-    .filter(statement => {
-      if (selectedSectors.value.length && !selectedSectors.value.find(s => s.title === statement.sector)) {
-        return false
-      }
-      if (selectedThemes.value.length && !selectedThemes.value.find(t => statement.themes.includes(t.title))) {
-        return false
-      }
-      return true
-    })
-})
 
 onMounted(() => {
   fetch('/statements.json')
