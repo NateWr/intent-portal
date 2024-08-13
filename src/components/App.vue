@@ -5,6 +5,7 @@ import StatementPanel from './StatementPanel.vue'
 import FilterGroup from './FilterGroup.vue'
 import { useI18N } from '../utilities/useI18N'
 import { useFilters } from '../utilities/useFilters'
+import { useUrlParams } from '../utilities/useUrlParams'
 import type { I18N } from '../types/i18n'
 import type { Statement } from '../types/statement'
 
@@ -36,6 +37,12 @@ const {
   clearSector,
   toggleSector,
 } = useFilters(i18n, statements)
+
+const { queryString } = useUrlParams(
+  selectedThemeSlugs,
+  selectedSectorSlugs,
+  searchPhrase,
+)
 
 const selectedStatements = computed(() => {
   return statements.value
