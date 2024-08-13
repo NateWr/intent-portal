@@ -1,5 +1,13 @@
 :root {
   --red: #b81e42;
-  --bg-grey: #f3ecee;
-  --bg-dark-grey: #cfb0b9;
+  --light-grey: #cfb0b9;
+  --lightest-grey: #f3ecee;
+
+  --text: black;
+  --bg: white;
+
+  --bg-highlight: var(--red);
+  --text-highlight: white;
+
+  --border-rounded: 99999px;
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import debounce from 'debounce'
 import { onMounted, ref, watch } from 'vue'
-import IconFilter from './icons/Filter.vue'
+import IconFilter from './icons/IconFilter.vue'
 import { useI18N } from '../utilities/useI18N'
 
 const props = defineProps({

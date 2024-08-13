@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref, type PropType } from 'vue'
+import { computed, onMounted, ref, type PropType } from 'vue'
 import PageHeader from './PageHeader.vue'
 import StatementPanel from './StatementPanel.vue'
+import FilterGroup from './FilterGroup.vue'
 import { useI18N } from '../utilities/useI18N'
 import { useFilters } from '../utilities/useFilters'
 import type { I18N } from '../types/i18n'
@@ -21,10 +22,33 @@ const { getI18N, setI18N } = useI18N()
 setI18N(props.i18n)
 const i18n = getI18N()
 
-const { persons, sectors, themes } = useFilters(i18n, statements)
+const {
+  sectors,
+  themes,
+  selectedSectors,
+  selectedSectorSlugs,
+  selectedThemes,
+  selectedThemeSlugs,
+  searchPhrase,
+  personSearchPhrase,
+  clearTheme,
+  toggleTheme,
+  clearSector,
+  toggleSector,
+} = useFilters(i18n, statements)
 
-const searchPhrase = ref<string>('')
-const personSearchPhrase = ref<string>('')
+const selectedStatements = computed(() => {
+  return statements.value
+    .filter(statement => {
+      if (selectedSectors.value.length && !selectedSectors.value.find(s => s.title === statement.sector)) {
+        return false
+      }
+      if (selectedThemes.value.length && !selectedThemes.value.find(t => statement.themes.includes(t.title))) {
+        return false
+      }
+      return true
+    })
+})
 
 onMounted(() => {
   fetch('/statements.json')
@@ -54,40 +78,30 @@ onMounted(() => {
       </a>
     </div>
     <div class="flex flex-col gap-8">
-      <div
-        v-if="themes.length"
-        class="flex flex-col gap-2"
+      <FilterGroup
+        :clearLabel="i18n.allThemes"
+        :filters="themes"
+        :selected="selectedThemes"
+        :selectedSlugs="selectedThemeSlugs"
+        @toggle="toggleTheme"
+        @clear="clearTheme"
       >
-        <h3>
-          {{ i18n.themes }}
-        </h3>
-        <ul>
-          <li
-            v-for="theme in themes"
-            :key="theme.slug"
-          >
-            {{ theme.title }}
-          </li>
-        </ul>
-      </div>
-      <div
-        v-if="sectors.length"
-        class="flex flex-col gap-2"
+        {{ i18n.themes }}
+      </FilterGroup>
+      <FilterGroup
+        :clearLabel="i18n.allSectors"
+        :filters="sectors"
+        :selected="selectedSectors"
+        :selectedSlugs="selectedSectorSlugs"
+        @toggle="toggleSector"
+        @clear="clearSector"
       >
-        <h3>
-          {{ i18n.sectors }}
-        </h3>
-        <ul>
-          <li
-            v-for="sector in sectors"
-            :key="sector.slug"
-          >
-            {{ sector.title }}
-          </li>
-        </ul>
-      </div>
+        {{ i18n.sectors }}
+      </FilterGroup>
       <div class="flex flex-col gap-2">
-        <h3>{{ i18n.persons }}</h3>
+        <h3 class="text-sm font-extrabold uppercase tracking-widest">
+          {{ i18n.persons }}
+        </h3>
         <div>{{ i18n.findPersons }}</div>
         <div class="input-wrapper">
           <input
@@ -99,7 +113,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex flex-col gap-2">
-        <h3>
+        <h3 class="text-sm font-extrabold uppercase tracking-widest">
           {{ i18n.orderBy }}
         </h3>
         <div class="flex gap-2">
@@ -108,7 +122,9 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex flex-col gap-2">
-        <h3>{{ i18n.search }}</h3>
+        <h3 class="text-sm font-extrabold uppercase tracking-widest">
+          {{ i18n.search }}
+        </h3>
         <div class="input-wrapper">
           <input
             type="search"
@@ -153,7 +169,7 @@ onMounted(() => {
   </section>
   <main class="main">
     <h2 class="sr-only">{{ i18n.statements }}</h2>
-    <div v-if="!statements && !isLoading" class="main-no-statements">
+    <div v-if="!selectedStatements && !isLoading" class="main-no-statements">
       {{ i18n.noStatementsFound }}
       <button class="link">
         {{ i18n.showAll }}
@@ -161,7 +177,7 @@ onMounted(() => {
     </div>
     <ul v-else class="main-list">
       <StatementPanel
-        v-for="statement in statements"
+        v-for="statement in selectedStatements"
         :key="statement.id"
         :statement="statement"
       />
@@ -195,7 +211,7 @@ onMounted(() => {
   font-size: 0.875rem;
   background: var(--red);
   color: white;
-  border-radius: 9999px;
+  border-radius: var(--border-rounded);
   white-space: nowrap;
 }
 
@@ -268,7 +284,7 @@ onMounted(() => {
     padding: 0.75rem 1.5rem;
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 9999px;
+    border-radius: var(--border-rounded);
     font-size: 1rem;
   }
 

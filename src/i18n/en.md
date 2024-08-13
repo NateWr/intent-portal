@@ -10,7 +10,8 @@ starvation: Starvation
 destructionInfrastructure: Destruction of infrastructure
 annexationDisplacement: Annexation/Forced Displacement
 sectors: Sectors
-armed-forces: Armed Forces
+allSectors: All Sectors
+armedForces: Armed Forces
 decisionMakers: Decision Makers
 legislators: Legislators
 publicFigures: Public Figures

@@ -9,6 +9,7 @@ export type I18N = {
   destructionInfrastructure?: string,
   annexationDisplacement?: string,
   sectors?: string,
+  allSectors?: string,
   armedForces?: string,
   decisionMakers?: string,
   legislators?: string,
