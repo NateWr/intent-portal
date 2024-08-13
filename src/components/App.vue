@@ -91,7 +91,7 @@ onMounted(() => {
         <div>{{ i18n.findPersons }}</div>
         <div class="input-wrapper">
           <input
-            type="text"
+            type="search"
             name="search"
             v-model="personSearchPhrase"
             :placeholder="i18n.searchByName"
@@ -111,15 +111,46 @@ onMounted(() => {
         <h3>{{ i18n.search }}</h3>
         <div class="input-wrapper">
           <input
-            type="text"
+            type="search"
             name="search"
             v-model="searchPhrase"
             :placeholder="i18n.searchStatements"
           >
         </div>
       </div>
+      <div>
+        {{ i18n.downloadOrView }}
+      </div>
     </div>
   </PageHeader>
+  <section class="toolbar flex item-center gap-8">
+    <h2 class="sr-only"></h2>
+    <div class="toolbar-count">
+      <span><strong>312 of 493</strong> entries</span>
+      <button>{{ i18n.showAll }}</button>
+    </div>
+    <div class="toolbar-order">
+      <h3 class="sr-only">
+        {{ i18n.orderBy }}
+      </h3>
+      <div class="flex gap-2">
+        <button>{{ i18n.oldest }}</button>
+        <button>{{ i18n.newest }}</button>
+      </div>
+    </div>
+    <form class="toolbar-search">
+      <label for="search-toolbar" class="sr-only">{{ i18n.search }}</label>
+      <div class="input-wrapper">
+        <input
+          type="search"
+          name="search"
+          id="search-toolbar"
+          v-model="searchPhrase"
+          :placeholder="i18n.searchStatements"
+        >
+      </div>
+    </form>
+  </section>
   <main class="main">
     <h2 class="sr-only">{{ i18n.statements }}</h2>
     <div v-if="!statements && !isLoading" class="main-no-statements">
@@ -145,6 +176,34 @@ onMounted(() => {
 </template>
 
 <style>
+.toolbar {
+  position: fixed;
+  top: 3rem;
+  left: 50%;
+  height: 2rem;
+  transform: translateX(-50%);
+  z-index: 99;
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.toolbar-count {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  font-size: 0.875rem;
+  background: var(--red);
+  color: white;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.toolbar-order,
+.toolbar-search {
+  display: none;
+}
+
 .main {
   --gap: 1rem;
   position: relative;
@@ -187,12 +246,41 @@ onMounted(() => {
 }
 
 @media (min-width: 1280px) {
+
   .main {
     --gap: 1.5rem;
     margin-top: 0;
     margin-left: 20rem;
     padding: var(--gap);
     padding-top: 6rem;
+  }
+
+  .toolbar {
+    top: 0.75rem;
+    left: auto;
+    right: 1rem;
+    width: auto;
+    height: auto;
+    transform: none;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 9999px;
+    font-size: 1rem;
+  }
+
+  .toolbar-count {
+    color: black;
+    background: transparent;
+  }
+
+  .toolbar-order,
+  .toolbar-search {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

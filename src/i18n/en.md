@@ -32,4 +32,5 @@ search: Search
 searchStatements: Search statements
 searchAndFilter: Search and Filter
 loading: Loading
+downloadOrView: Download the full dataset or view the spreadsheet.
 ---

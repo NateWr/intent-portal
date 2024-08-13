@@ -31,4 +31,5 @@ export type I18N = {
   searchStatements?: string,
   searchAndFilter?: string,
   loading?: string,
+  downloadOrView: string,
 }
