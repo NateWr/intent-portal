@@ -8,9 +8,9 @@ defineProps({
 </script>
 
 <template>
-  <span class="pill" :class="selected ? 'pill-selected' : ''">
+  <button class="pill" :class="selected ? 'pill-selected' : ''">
     <slot />
-  </span>
+  </button>
 </template>
 
 <style>
@@ -20,14 +20,25 @@ defineProps({
   gap: 0.5rem;
   padding: 0.25rem 1rem;
   font-size: 0.875rem;
+  font-weight: 500;
   color: var(--text);
   background: var(--bg);
   border-radius: var(--border-rounded);
   text-align: initial;
+
+  &:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: -2px;
+  }
 }
 
 .pill-selected {
   color: var(--text-highlight);
   background: var(--bg-highlight);
+
+  &:focus-visible {
+    outline-color: var(--text-highlight);
+    outline-offset: -4px;
+  }
 }
 </style>

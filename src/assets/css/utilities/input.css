@@ -1,0 +1,35 @@
+.input {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--text);
+  border-radius: var(--border-rounded);
+  background: transparent;
+  color: var(--text);
+
+  &:placeholder {
+    color: var(--text-placeholder);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+
+  & svg {
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: auto;
+    color: var(--red);
+  }
+
+  .input {
+    padding-left: 2.25rem;
+  }
+}

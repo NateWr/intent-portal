@@ -9,5 +9,7 @@
   --bg-highlight: var(--red);
   --text-highlight: white;
 
+  --text-placeholder: rgba(0, 0, 0, 0.65);
+
   --border-rounded: 99999px;
 }

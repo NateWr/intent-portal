@@ -3,6 +3,9 @@ import { computed, onMounted, ref, type PropType } from 'vue'
 import PageHeader from './PageHeader.vue'
 import StatementPanel from './StatementPanel.vue'
 import FilterGroup from './FilterGroup.vue'
+import Pill from './Pill.vue'
+import IconPeople from './icons/IconPeople.vue'
+import IconSearch from './icons/IconSearch.vue'
 import { useI18N } from '../utilities/useI18N'
 import { useFilters } from '../utilities/useFilters'
 import { useUrlParams } from '../utilities/useUrlParams'
@@ -67,7 +70,7 @@ onMounted(() => {
 <template>
   <PageHeader logoUrl="/img/logo.png">
     <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
-    <div class="header-description">
+    <div class="text-sm leading-relaxed">
       {{ i18n.description }}
       <a href="/about" class="link">
         {{ i18n.learnMore }}
@@ -98,11 +101,13 @@ onMounted(() => {
         <h3 class="text-sm font-extrabold uppercase tracking-widest">
           {{ i18n.persons }}
         </h3>
-        <div>{{ i18n.findPersons }}</div>
+        <div class="text-sm font-medium">{{ i18n.findPersons }}</div>
         <div class="input-wrapper">
+          <IconPeople aria-hidden="true" />
           <input
             type="search"
             name="search"
+            class="input"
             v-model="personSearchPhrase"
             :placeholder="i18n.searchByName"
           >
@@ -113,8 +118,8 @@ onMounted(() => {
           {{ i18n.orderBy }}
         </h3>
         <div class="flex gap-2">
-          <button>{{ i18n.oldest }}</button>
-          <button>{{ i18n.newest }}</button>
+          <Pill :selected="true">{{ i18n.oldest }}</Pill>
+          <Pill>{{ i18n.newest }}</Pill>
         </div>
       </div>
       <div class="flex flex-col gap-2">
@@ -122,15 +127,17 @@ onMounted(() => {
           {{ i18n.search }}
         </h3>
         <div class="input-wrapper">
+          <IconSearch aria-hidden="true" />
           <input
             type="search"
             name="search"
+            class="input"
             v-model="searchPhrase"
             :placeholder="i18n.searchStatements"
           >
         </div>
       </div>
-      <div>
+      <div class="text-sm font-medium">
         {{ i18n.downloadOrView }}
       </div>
     </div>
@@ -148,17 +155,19 @@ onMounted(() => {
         {{ i18n.orderBy }}
       </h3>
       <div class="flex gap-2">
-        <button>{{ i18n.oldest }}</button>
-        <button>{{ i18n.newest }}</button>
+          <Pill :selected="true">{{ i18n.oldest }}</Pill>
+          <Pill>{{ i18n.newest }}</Pill>
       </div>
     </div>
     <form class="toolbar-search">
       <label for="search-toolbar" class="sr-only">{{ i18n.search }}</label>
       <div class="input-wrapper">
+        <IconSearch aria-hidden="true" />
         <input
           type="search"
           name="search"
           id="search-toolbar"
+          class="input"
           v-model="searchPhrase"
           :placeholder="i18n.searchStatements"
         >
@@ -261,10 +270,14 @@ onMounted(() => {
 
 @media (min-width: 1280px) {
 
+  body {
+    --sidebar-width: 24rem;
+  }
+
   .main {
     --gap: 1.5rem;
     margin-top: 0;
-    margin-left: 20rem;
+    margin-left: var(--sidebar-width);
     padding: var(--gap);
     padding-top: 6rem;
   }
@@ -279,7 +292,7 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 2rem;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem;
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: var(--border-rounded);

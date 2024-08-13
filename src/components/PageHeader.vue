@@ -116,7 +116,7 @@ onMounted(() => {
     position: fixed;
     top: 0;
     left: 0;
-    width: 20rem;
+    width: var(--sidebar-width);
     height: 100vh;
     flex-direction: column;
     justify-content: flex-start;

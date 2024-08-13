@@ -34,25 +34,29 @@ defineEmits<{
     </h3>
     <ul class="flex flex-col gap-px">
       <li class="flex">
-        <button class="flex" @click="$emit('clear')">
-          <Pill :selected="!selected.length">
-            <IconPlus v-if="selected.length" class="-ml-2" aria-hidden="true" />
-            <IconMinus v-else class="-ml-2" aria-hidden="true" />
-            {{ clearLabel }}
-          </Pill>
-        </button>
+        <Pill
+          class="flex"
+          :selected="!selected.length"
+          @click="$emit('clear')"
+        >
+          <IconPlus v-if="selected.length" class="-ml-2" aria-hidden="true" />
+          <IconMinus v-else class="-ml-2" aria-hidden="true" />
+          {{ clearLabel }}
+        </Pill>
       </li>
       <li
         v-for="filter in filters"
         :key="filter.slug"
       >
-        <button class="flex" @click="$emit('toggle', filter)">
-          <Pill :selected="selectedSlugs.includes(filter.slug)">
-            <IconPlus v-if="!selectedSlugs.includes(filter.slug)" class="-ml-2" aria-hidden="true" />
-            <IconMinus v-else class="-ml-2" aria-hidden="true" />
-            {{ filter.title }}
-          </Pill>
-        </button>
+        <Pill
+          class="flex"
+          :selected="selectedSlugs.includes(filter.slug)"
+          @click="$emit('toggle', filter)"
+        >
+          <IconPlus v-if="!selectedSlugs.includes(filter.slug)" class="-ml-2" aria-hidden="true" />
+          <IconMinus v-else class="-ml-2" aria-hidden="true" />
+          {{ filter.title }}
+        </Pill>
       </li>
     </ul>
   </div>
