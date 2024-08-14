@@ -13,7 +13,6 @@ import { useFilters } from '../utilities/useFilters'
 import { useStatements } from '../utilities/useStatements'
 import { useUrlParams } from '../utilities/useUrlParams'
 import type { I18N } from '../types/i18n'
-import type { Statement } from '../types/statement'
 
 const props = defineProps({
   i18n: {
@@ -206,6 +205,8 @@ const downloadOrView = computed(() => {
         v-for="statement in selectedStatements"
         :key="statement.id"
         :statement="statement"
+        :sectors="sectors"
+        :themes="themes"
       />
     </ul>
     <template v-if="isLoading">
@@ -229,10 +230,12 @@ const downloadOrView = computed(() => {
 }
 
 .main-list {
+  --max-width: 46rem;
+  --columns: 1;
   display: flex;
   flex-direction: column;
   gap: var(--gap);
-  max-width: 46rem;
+  max-width: calc((var(--max-width) * var(--columns)) + (var(--gap) * var(--columns)));
   margin-left: auto;
   margin-right: auto;
 }
@@ -296,6 +299,29 @@ const downloadOrView = computed(() => {
     & .link {
       color: var(--highlight);
     }
+  }
+}
+
+@media (min-width: 1920px) {
+
+  .main-list {
+    --columns: 2;
+    display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 2600px) {
+
+  .main-list {
+    --columns: 3;
+  }
+}
+
+@media (min-width: 3400px) {
+
+  .main-list {
+    --columns: 4;
   }
 }
 </style>

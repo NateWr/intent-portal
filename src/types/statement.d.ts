@@ -1,6 +1,7 @@
 export type Statement = {
   id: number,
   date: string,
+  dateFormatted: string,
   dateNumber: number,
   person: string,
   position: string,
@@ -8,5 +9,5 @@ export type Statement = {
   details: string,
   themes: string[],
   permalink: string,
-  sources: string[],
+  sources: Object<{url: string, domain: string}>[],
 }

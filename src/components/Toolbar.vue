@@ -19,9 +19,10 @@
 @media (min-width: 1280px) {
 
   .toolbar {
-    top: 0.75rem;
+    top: 1rem;
     left: auto;
     right: 1rem;
+    margin: 0;
     width: auto;
     height: auto;
     transform: none;

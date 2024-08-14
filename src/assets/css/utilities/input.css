@@ -7,7 +7,7 @@
   color: var(--text);
 
   &:placeholder {
-    color: var(--text-placeholder);
+    color: var(--text-light);
   }
 
   &:focus-visible {

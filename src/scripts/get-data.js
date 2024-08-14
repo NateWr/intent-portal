@@ -23,6 +23,8 @@ const getCol = (col) => {
   return i
 }
 
+const REGEX_DOMAIN = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/gi
+
 const rows = sheet?.data?.values ?? []
 const columns = rows.slice(0, 1).flat()
 const statements = rows.slice(1)
@@ -38,11 +40,21 @@ const statements = rows.slice(1)
       themes: statement[getCol('Themes')]?.split(',')?.map((theme) => slugify(theme)) ?? [],
       permalink: statement[getCol('Permalink')] ?? '',
       sources: [
-        statement[getCol('Source')] ?? '',
-        statement[getCol('Link 2')] ?? '',
-        statement[getCol('Link 3')] ?? '',
-        statement[getCol('Link 4')] ?? ''
-      ].filter((s) => s)
+          statement[getCol('Source')] ?? '',
+          statement[getCol('Link 2')] ?? '',
+          statement[getCol('Link 3')] ?? '',
+          statement[getCol('Link 4')] ?? ''
+        ]
+        .filter((s) => s)
+        .map(url => {
+          const matches = [...url.matchAll(REGEX_DOMAIN)]
+          return {
+            url,
+            domain: matches[0]?.length
+              ? matches[0][1] ?? matches[0][0] ?? ''
+              : ''
+          }
+        })
     }
   }
 )
