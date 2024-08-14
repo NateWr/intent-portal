@@ -26,7 +26,9 @@ watch(showMenu, setBodyOverflow)
 
 onMounted(() => {
   window.addEventListener('resize', debounce(() => {
-    showMenu.value = isDesktop()
+    if (isDesktop()) {
+      showMenu.value = true
+    }
   }, 1000))
 })
 </script>
@@ -99,7 +101,11 @@ onMounted(() => {
   transform-origin: top right;
   transform: scale(1);
   z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   padding: .5rem;
+  padding-bottom: 2rem;
   background: white;
   border: none;
   border-bottom: 2px solid var(--red);
@@ -145,9 +151,6 @@ onMounted(() => {
     height: auto;
     border: none;
     padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
     /* Allow space for the autocomplete dropdown (@see MAX_OPTIONS in Autocomplete.vue) */
     padding-bottom: 320px;
   }
