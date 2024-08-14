@@ -16,18 +16,6 @@
   font-size: 0.875rem;
 }
 
-.count-showing {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 1rem;
-  font-size: 0.875rem;
-  background: var(--red);
-  color: white;
-  border-radius: var(--border-rounded);
-  white-space: nowrap;
-}
-
 @media (min-width: 1280px) {
 
   .toolbar {
@@ -42,11 +30,6 @@
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: var(--border-rounded);
     font-size: 1rem;
-  }
-
-  .count-showing {
-    color: black;
-    background: transparent;
   }
 }
 
