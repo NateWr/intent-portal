@@ -6,6 +6,7 @@ import FilterGroup from './FilterGroup.vue'
 import Autocomplete from './Autocomplete.vue'
 import OrderBy from './OrderBy.vue'
 import Toolbar from './Toolbar.vue'
+import Spinner from './Spinner.vue'
 import IconSearch from './icons/IconSearch.vue'
 import { useI18N } from '../utilities/useI18N'
 import { useFilters } from '../utilities/useFilters'
@@ -152,7 +153,7 @@ const downloadOrView = computed(() => {
       <div v-html="downloadOrView" />
     </div>
   </PageHeader>
-  <Toolbar>
+  <Toolbar v-if="!isLoading">
     <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
     <div class="count-showing" role="alert">
       <span>
@@ -209,8 +210,10 @@ const downloadOrView = computed(() => {
     </ul>
     <template v-if="isLoading">
       <div class="loading-screen" />
-      <div class="loading-spinner" role="alert">
-        {{ i18n.loading }}
+      <div class="loading-spinner">
+        <Spinner role="alert">
+          {{ i18n.loading }}
+        </Spinner>
       </div>
     </template>
   </main>
@@ -270,9 +273,6 @@ const downloadOrView = computed(() => {
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
 @media (min-width: 1280px) {
