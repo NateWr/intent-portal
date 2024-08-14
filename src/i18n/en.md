@@ -44,4 +44,6 @@ selected: Selected
 autocompleteUnselect: Press Enter or Space to remove selection
 autocompleteInstructions: When autocomplete results are available use up and down arrows to review and enter to select.
 autocompletePrompt: Type 3 or more characters to view results
+pageNotFound: 404 Page Not Found
+pageNotFoundText: Sorry, we couldn't find the page that you were looking for.
 ---

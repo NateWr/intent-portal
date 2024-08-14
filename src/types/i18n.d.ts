@@ -43,4 +43,6 @@ export type I18N = {
   autocompleteUnselect?: string,
   autocompleteInstructions?: string,
   autocompletePrompt?: string,
+  pageNotFound?: string,
+  pageNotFoundText?: string,
 }

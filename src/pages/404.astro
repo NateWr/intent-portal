@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AboutLayout from "../layouts/AboutLayout.astro";
+import * as i18n from "../i18n/en.md";
+
+const title = [
+	i18n.frontmatter.title,
+	i18n.frontmatter.descriptionShort,
+	i18n.frontmatter.lawForPalestine
+].join(' - ')
+---
+
+<Layout {title} description={i18n.frontmatter.description}>
+  <AboutLayout back={i18n.frontmatter.back}>
+    <h1>
+      {i18n.frontmatter.pageNotFound}
+    </h1>
+    <p>
+      {i18n.frontmatter.pageNotFoundText}
+      <a href="/">
+        {i18n.frontmatter.back}
+      </a>
+    </p>
+  </AboutLayout>
+</Layout>
