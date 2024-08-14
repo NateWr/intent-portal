@@ -1,11 +1,15 @@
 .link {
-  color: var(--red);
+  color: var(--highlight);
   font-weight: 700;
   text-decoration: underline;
   text-decoration-thickness: 0.1em;
 
+  &:hover {
+    color: var(--highlight-hover);
+  }
+
   &:focus-within {
-    outline: 2px solid var(--red);
+    outline: 2px solid;
     outline-offset: 2px;
     text-decoration: none;
   }

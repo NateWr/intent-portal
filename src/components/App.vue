@@ -5,8 +5,7 @@ import StatementPanel from './StatementPanel.vue'
 import FilterGroup from './FilterGroup.vue'
 import Autocomplete from './Autocomplete.vue'
 import OrderBy from './OrderBy.vue'
-import Pill from './Pill.vue'
-import IconPeople from './icons/IconPeople.vue'
+import Toolbar from './Toolbar.vue'
 import IconSearch from './icons/IconSearch.vue'
 import { useI18N } from '../utilities/useI18N'
 import { useFilters } from '../utilities/useFilters'
@@ -19,6 +18,10 @@ const props = defineProps({
     type: Object as PropType<I18N>,
     required: true,
   },
+  spreadsheetId: {
+    type: String,
+    required: true,
+  }
 })
 
 const isLoading = ref<boolean>(true)
@@ -49,6 +52,7 @@ const {
   clearSector,
   toggleSector,
   setOrderBy,
+  clearFilters
 } = useFilters(i18n, statements)
 
 const { queryString } = useUrlParams(
@@ -58,6 +62,13 @@ const { queryString } = useUrlParams(
   debouncedSearchPhrase,
   orderBy,
 )
+
+const downloadOrView = computed(() => {
+  return i18n.value.downloadOrView
+    ?.replace('{dataUrl}', `https://docs.google.com/spreadsheets/d/${props.spreadsheetId}/export?format=csv`)
+    ?.replace('{spreadsheetUrl}', `https://docs.google.com/spreadsheets/d/${props.spreadsheetId}`)
+    ?.replaceAll('<a ', '<a class="link" ')
+})
 
 onMounted(() => {
   fetch('/statements.json')
@@ -74,7 +85,13 @@ onMounted(() => {
           return {
             ...statement,
             dateNumber: statement.date.trim()
-              ? parseInt(statement.date.split('/').reverse().join(''))
+              ? parseInt(
+                  statement.date
+                    .split('/')
+                    .map(str => str.padStart(2, '0'))
+                    .reverse()
+                    .join('')
+                )
               : Number.MAX_SAFE_INTEGER,
           }
         })
@@ -88,7 +105,7 @@ onMounted(() => {
 <template>
   <PageHeader logoUrl="/img/logo.png">
     <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
-    <div class="text-sm leading-relaxed">
+    <div class="leading-relaxed">
       {{ i18n.description }}
       <a href="/about" class="link">
         {{ i18n.learnMore }}
@@ -129,7 +146,7 @@ onMounted(() => {
           @toggle="togglePerson"
         />
       </div>
-      <div class="flex flex-col gap-2">
+      <div class="mobile-only flex flex-col gap-2">
         <h3 class="text-sm font-extrabold uppercase tracking-widest">
           {{ i18n.orderBy }}
         </h3>
@@ -140,12 +157,13 @@ onMounted(() => {
           @order-by="setOrderBy"
         />
       </div>
-      <div class="flex flex-col gap-2">
+      <form class="mobile-only flex flex-col gap-2">
         <h3 class="text-sm font-extrabold uppercase tracking-widest">
           {{ i18n.search }}
         </h3>
         <div class="input-wrapper">
           <IconSearch aria-hidden="true" />
+          <label class="sr-only">{{ i18n.search }}</label>
           <input
             type="search"
             name="search"
@@ -154,21 +172,25 @@ onMounted(() => {
             :placeholder="i18n.searchStatements"
           >
         </div>
-      </div>
-      <div class="text-sm font-medium">
-        {{ i18n.downloadOrView }}
-      </div>
+      </form>
+      <div v-html="downloadOrView" />
     </div>
   </PageHeader>
-  <section class="toolbar flex item-center gap-8">
-    <h2 class="sr-only"></h2>
-    <div v-if="selectedStatements.length < statements.length" class="toolbar-count" role="alert">
+  <Toolbar>
+    <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
+    <div class="count-showing" role="alert">
       <span>
         <strong>{{ selectedStatements.length }} of {{ statements.length }}</strong> entries
       </span>
-      <button>{{ i18n.showAll }}</button>
+      <button
+        v-if="selectedStatements.length < statements.length"
+        class="link"
+        @click="clearFilters"
+      >
+        {{ i18n.showAll }}
+      </button>
     </div>
-    <div class="toolbar-order">
+    <div class="desktop-only flex items-center">
       <h3 class="sr-only">
         {{ i18n.orderBy }}
       </h3>
@@ -179,7 +201,7 @@ onMounted(() => {
         @order-by="setOrderBy"
       />
     </div>
-    <form class="toolbar-search">
+    <form class="desktop-only flex items-center">
       <label for="search-toolbar" class="sr-only">{{ i18n.search }}</label>
       <div class="input-wrapper">
         <IconSearch aria-hidden="true" />
@@ -193,7 +215,7 @@ onMounted(() => {
         >
       </div>
     </form>
-  </section>
+  </Toolbar>
   <main class="main">
     <h2 class="sr-only">{{ i18n.statements }}</h2>
     <div v-if="!selectedStatements && !isLoading" class="main-no-statements">
@@ -219,33 +241,6 @@ onMounted(() => {
 </template>
 
 <style>
-.toolbar {
-  position: fixed;
-  top: 3rem;
-  left: 50%;
-  height: 2rem;
-  transform: translateX(-50%);
-  z-index: 99;
-  margin: 0.5rem 0;
-  font-size: 0.875rem;
-}
-
-.toolbar-count {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 1rem;
-  font-size: 0.875rem;
-  background: var(--red);
-  color: white;
-  border-radius: var(--border-rounded);
-  white-space: nowrap;
-}
-
-.toolbar-order,
-.toolbar-search {
-  display: none;
-}
 
 .main {
   --gap: 1rem;
@@ -261,6 +256,22 @@ onMounted(() => {
   max-width: 46rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.count-showing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  font-size: 0.875rem;
+  background: var(--bg-highlight);
+  color: var(--text-highlight);
+  border-radius: var(--border-rounded);
+  white-space: nowrap;
+
+  & .link {
+    color: var(--text-highlight);
+  }
 }
 
 .loading-screen {
@@ -302,32 +313,13 @@ onMounted(() => {
     padding-top: 6rem;
   }
 
-  .toolbar {
-    top: 0.75rem;
-    left: auto;
-    right: 1rem;
-    width: auto;
-    height: auto;
-    transform: none;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 0.75rem;
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: var(--border-rounded);
-    font-size: 1rem;
-  }
-
-  .toolbar-count {
+  .count-showing {
     color: black;
     background: transparent;
-  }
 
-  .toolbar-order,
-  .toolbar-search {
-    display: flex;
-    align-items: center;
+    & .link {
+      color: var(--highlight);
+    }
   }
 }
 </style>

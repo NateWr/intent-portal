@@ -34,7 +34,7 @@ search: Search
 searchStatements: Search statements
 searchAndFilter: Search and Filter
 loading: Loading
-downloadOrView: Download the full dataset or view the spreadsheet.
+downloadOrView: Download the <a href="{dataUrl}">full dataset</a> or view the <a href="{spreadsheetUrl}">spreadsheet</a>.
 selected: Selected
 autocompleteUnselect: Press Enter or Space to remove selection
 autocompleteInstructions: When autocomplete results are available use up and down arrows to review and enter to select.

@@ -6,6 +6,8 @@
 
   --text: black;
   --bg: white;
+  --highlight: var(--red);
+  --highlight-hover: var(--light-red);
 
   --bg-highlight: var(--red);
   --bg-highlight-hover: var(--light-red);

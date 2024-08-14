@@ -31,7 +31,7 @@ defineProps({
   }
 
   &:focus-visible {
-    outline: 2px solid var(--red);
+    outline: 2px solid var(--highlight);
     outline-offset: -2px;
   }
 }

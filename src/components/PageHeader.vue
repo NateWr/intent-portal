@@ -108,7 +108,7 @@ onMounted(() => {
   padding-bottom: 2rem;
   background: white;
   border: none;
-  border-bottom: 2px solid var(--red);
+  border-bottom: 2px solid var(--highlight);
 }
 
 .header-panel-enter-from,

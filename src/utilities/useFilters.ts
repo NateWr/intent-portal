@@ -101,6 +101,14 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
   const clearSector = () => clearFilter(selectedSectors)
   const toggleSector = (sector: Filter) => toggleFilter(sector, selectedSectors, selectedSectorSlugs)
   const setOrderBy = (order: string) => orderBy.value = order
+  const clearFilters = () => {
+    clearPerson()
+    clearTheme()
+    clearSector()
+    orderBy.value = ''
+    searchPhrase.value = ''
+    debouncedSearchPhrase.value = ''
+  }
 
   const selectedStatements = computed(() => {
     return statements.value
@@ -150,5 +158,6 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
     clearSector,
     toggleSector,
     setOrderBy,
+    clearFilters,
   }
 }
