@@ -2,6 +2,8 @@ export type I18N = {
   locale?: string,
   title?: string,
   description?: string,
+  aboutDatabase?: string,
+  back?: string,
   learnMore?: string,
   themes?: string,
   allThemes?: string,

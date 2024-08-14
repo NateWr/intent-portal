@@ -83,7 +83,7 @@ const downloadOrView = computed(() => {
     <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
     <div class="leading-relaxed">
       {{ i18n.description }}
-      <a href="/about" class="link">
+      <a href="about" class="link">
         {{ i18n.learnMore }}
       </a>
     </div>
