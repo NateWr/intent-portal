@@ -1,4 +1,5 @@
 export type I18N = {
+  locale?: string,
   title?: string,
   description?: string,
   learnMore?: string,

@@ -4,6 +4,7 @@ import PageHeader from './PageHeader.vue'
 import StatementPanel from './StatementPanel.vue'
 import FilterGroup from './FilterGroup.vue'
 import Autocomplete from './Autocomplete.vue'
+import OrderBy from './OrderBy.vue'
 import Pill from './Pill.vue'
 import IconPeople from './icons/IconPeople.vue'
 import IconSearch from './icons/IconSearch.vue'
@@ -39,6 +40,7 @@ const {
   selectedThemeSlugs,
   searchPhrase,
   debouncedSearchPhrase,
+  orderBy,
   selectedStatements,
   clearPerson,
   togglePerson,
@@ -46,6 +48,7 @@ const {
   toggleTheme,
   clearSector,
   toggleSector,
+  setOrderBy,
 } = useFilters(i18n, statements)
 
 const { queryString } = useUrlParams(
@@ -53,6 +56,7 @@ const { queryString } = useUrlParams(
   selectedSectorSlugs,
   selectedPersonSlugs,
   debouncedSearchPhrase,
+  orderBy,
 )
 
 onMounted(() => {
@@ -66,6 +70,14 @@ onMounted(() => {
     .then(r => r.json())
     .then(data => {
       statements.value = data.slice(0, 100)
+        .map((statement: Statement) => {
+          return {
+            ...statement,
+            dateNumber: statement.date.trim()
+              ? parseInt(statement.date.split('/').reverse().join(''))
+              : Number.MAX_SAFE_INTEGER,
+          }
+        })
     })
     .finally(() => {
       isLoading.value = false
@@ -121,10 +133,12 @@ onMounted(() => {
         <h3 class="text-sm font-extrabold uppercase tracking-widest">
           {{ i18n.orderBy }}
         </h3>
-        <div class="flex gap-2">
-          <Pill :selected="true">{{ i18n.oldest }}</Pill>
-          <Pill>{{ i18n.newest }}</Pill>
-        </div>
+        <OrderBy
+          :current="orderBy"
+          :oldest="i18n.oldest"
+          :newest="i18n.newest"
+          @order-by="setOrderBy"
+        />
       </div>
       <div class="flex flex-col gap-2">
         <h3 class="text-sm font-extrabold uppercase tracking-widest">
@@ -158,10 +172,12 @@ onMounted(() => {
       <h3 class="sr-only">
         {{ i18n.orderBy }}
       </h3>
-      <div class="flex gap-2">
-          <Pill :selected="true">{{ i18n.oldest }}</Pill>
-          <Pill>{{ i18n.newest }}</Pill>
-      </div>
+      <OrderBy
+        :current="orderBy"
+        :oldest="i18n.oldest"
+        :newest="i18n.newest"
+        @order-by="setOrderBy"
+      />
     </div>
     <form class="toolbar-search">
       <label for="search-toolbar" class="sr-only">{{ i18n.search }}</label>

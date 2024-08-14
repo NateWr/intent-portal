@@ -83,6 +83,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
   const selectedPersonTitles = computed(() => selectedPersons.value.map(filter => filter.title.replaceAll(/\s\([0-9]*\)*$/gi, '')))
   const searchPhrase = ref('')
   const debouncedSearchPhrase = ref('')
+  const orderBy = ref('')
 
   const clearFilter = (selectedFilters: Ref<Filter[]>) => selectedFilters.value = []
   const toggleFilter = (filter: Filter, selectedFilters: Ref<Filter[]>, selectedFilterSlugs: ComputedRef<string[]>) => {
@@ -99,6 +100,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
   const toggleTheme = (theme: Filter) => toggleFilter(theme, selectedThemes, selectedThemeSlugs)
   const clearSector = () => clearFilter(selectedSectors)
   const toggleSector = (sector: Filter) => toggleFilter(sector, selectedSectors, selectedSectorSlugs)
+  const setOrderBy = (order: string) => orderBy.value = order
 
   const selectedStatements = computed(() => {
     return statements.value
@@ -117,6 +119,12 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
         }
         return true
       })
+      .sort((a, b) => {
+        if (orderBy.value === 'new') {
+          return b.dateNumber - a.dateNumber
+        }
+        return a.dateNumber - b.dateNumber
+      })
   })
 
   watch(searchPhrase, debounce(() => debouncedSearchPhrase.value = searchPhrase.value.trim(), 250))
@@ -133,6 +141,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
     selectedThemeSlugs,
     searchPhrase,
     debouncedSearchPhrase,
+    orderBy,
     selectedStatements,
     clearPerson,
     togglePerson,
@@ -140,5 +149,6 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
     toggleTheme,
     clearSector,
     toggleSector,
+    setOrderBy,
   }
 }

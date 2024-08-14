@@ -1,15 +1,35 @@
 <script setup lang="ts">
-import { type PropType } from 'vue'
+import { computed, type PropType } from 'vue'
+import { useI18N } from '../utilities/useI18N'
 import type { Statement } from '../types/statement'
 
 const props = defineProps({
-  statement: Object as PropType<Statement>,
+  statement: {
+    type: Object as PropType<Statement>,
+    required: true,
+  },
+})
+
+const { getI18N } = useI18N()
+const i18n = getI18N()
+
+const dateFormatted = computed(() => {
+  if (!props.statement.date) {
+    return ''
+  }
+  const dateParts = props.statement.date.split('/')
+  return new Date(`${dateParts[1]}-${dateParts[0]}-${dateParts[2]}`)
+    .toLocaleDateString(i18n.value.locale, {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    })
 })
 </script>
 
 <template>
   <li class="statement">
-    <div>{{ statement?.date }}</div>
+    <div>{{ dateFormatted }}</div>
     <div class="statement-details">{{ statement?.details }}</div>
     <div>{{ statement?.person }}</div>
     <div>{{ statement?.position }}</div>
