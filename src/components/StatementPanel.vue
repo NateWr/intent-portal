@@ -18,7 +18,7 @@ const dateFormatted = computed(() => {
     return ''
   }
   const dateParts = props.statement.date.split('/')
-  return new Date(`${dateParts[1]}-${dateParts[0]}-${dateParts[2]}`)
+  return new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`)
     .toLocaleDateString(i18n.value.locale, {
       day: 'numeric',
       month: 'short',
