@@ -69,7 +69,7 @@ onMounted(() => {
     })
     .then(r => r.json())
     .then(data => {
-      statements.value = data.slice(0, 100)
+      statements.value = data
         .map((statement: Statement) => {
           return {
             ...statement,
