@@ -4,6 +4,7 @@ import type { Filter } from "../types/filter";
 import type { Statement } from "../types/statement";
 import debounce from "debounce";
 import slugify from "@sindresorhus/slugify";
+import MiniSearch from "minisearch";
 
 export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
 
@@ -110,7 +111,21 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
     debouncedSearchPhrase.value = ''
   }
 
+
+  const minisearch = new MiniSearch({
+    fields: ['person', 'position', 'details'],
+    storeFields: ['id'],
+  })
+
+  watch(statements, (newValue) => {
+    minisearch.removeAll()
+    minisearch.addAll(newValue)
+  })
+
   const selectedStatements = computed(() => {
+    const searchResults = debouncedSearchPhrase.value
+      ? minisearch.search(debouncedSearchPhrase.value, { fuzzy: 0.2 }).map(r => r.id)
+      : []
     return statements.value
       .filter(statement => {
         if (selectedSectors.value.length && !selectedSectorSlugs.value.includes(statement.sector)) {
@@ -122,7 +137,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
         if (selectedPersonTitles.value.length && !selectedPersonTitles.value.includes(statement.person)) {
           return false
         }
-        if (debouncedSearchPhrase.value && !statement.details.includes(debouncedSearchPhrase.value)) {
+        if (debouncedSearchPhrase.value && !searchResults.includes(statement.id)) {
           return false
         }
         return true
@@ -135,7 +150,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
       })
   })
 
-  watch(searchPhrase, debounce(() => debouncedSearchPhrase.value = searchPhrase.value.trim(), 250))
+  watch(searchPhrase, debounce(() => debouncedSearchPhrase.value = searchPhrase.value.trim().toLocaleLowerCase(), 250))
 
   return {
     persons,
