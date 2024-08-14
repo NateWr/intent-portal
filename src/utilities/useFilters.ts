@@ -5,6 +5,7 @@ import type { Statement } from "../types/statement";
 import debounce from "debounce";
 import slugify from "@sindresorhus/slugify";
 import MiniSearch from "minisearch";
+import { useUrlParams } from "./useUrlParams";
 
 export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
 
@@ -111,12 +112,11 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
     debouncedSearchPhrase.value = ''
   }
 
-
+  watch(searchPhrase, debounce(() => debouncedSearchPhrase.value = searchPhrase.value.trim().toLocaleLowerCase(), 250))
   const minisearch = new MiniSearch({
     fields: ['person', 'position', 'details'],
     storeFields: ['id'],
   })
-
   watch(statements, (newValue) => {
     minisearch.removeAll()
     minisearch.addAll(newValue)
@@ -149,8 +149,6 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
         return a.dateNumber - b.dateNumber
       })
   })
-
-  watch(searchPhrase, debounce(() => debouncedSearchPhrase.value = searchPhrase.value.trim().toLocaleLowerCase(), 250))
 
   return {
     persons,

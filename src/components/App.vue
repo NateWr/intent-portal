@@ -9,6 +9,7 @@ import Toolbar from './Toolbar.vue'
 import IconSearch from './icons/IconSearch.vue'
 import { useI18N } from '../utilities/useI18N'
 import { useFilters } from '../utilities/useFilters'
+import { useStatements } from '../utilities/useStatements'
 import { useUrlParams } from '../utilities/useUrlParams'
 import type { I18N } from '../types/i18n'
 import type { Statement } from '../types/statement'
@@ -24,12 +25,11 @@ const props = defineProps({
   }
 })
 
-const isLoading = ref<boolean>(true)
-const statements = ref<Statement[]>([])
-
 const { getI18N, setI18N } = useI18N()
 setI18N(props.i18n)
 const i18n = getI18N()
+
+const { isLoading, statements } = useStatements()
 
 const {
   persons,
@@ -45,7 +45,6 @@ const {
   debouncedSearchPhrase,
   orderBy,
   selectedStatements,
-  clearPerson,
   togglePerson,
   clearTheme,
   toggleTheme,
@@ -55,10 +54,18 @@ const {
   clearFilters
 } = useFilters(i18n, statements)
 
-const { queryString } = useUrlParams(
-  selectedThemeSlugs,
-  selectedSectorSlugs,
+useUrlParams(
+  statements,
+  persons,
+  sectors,
+  themes,
+  selectedPersons,
+  selectedSectors,
+  selectedThemes,
   selectedPersonSlugs,
+  selectedSectorSlugs,
+  selectedThemeSlugs,
+  searchPhrase,
   debouncedSearchPhrase,
   orderBy,
 )
@@ -68,37 +75,6 @@ const downloadOrView = computed(() => {
     ?.replace('{dataUrl}', `https://docs.google.com/spreadsheets/d/${props.spreadsheetId}/export?format=csv`)
     ?.replace('{spreadsheetUrl}', `https://docs.google.com/spreadsheets/d/${props.spreadsheetId}`)
     ?.replaceAll('<a ', '<a class="link" ')
-})
-
-onMounted(() => {
-  fetch('/statements.json')
-    .then(r => {
-      if (!r.ok) {
-        throw new Error()
-      }
-      return r
-    })
-    .then(r => r.json())
-    .then(data => {
-      statements.value = data
-        .map((statement: Statement) => {
-          return {
-            ...statement,
-            dateNumber: statement.date.trim()
-              ? parseInt(
-                  statement.date
-                    .split('/')
-                    .map(str => str.padStart(2, '0'))
-                    .reverse()
-                    .join('')
-                )
-              : Number.MAX_SAFE_INTEGER,
-          }
-        })
-    })
-    .finally(() => {
-      isLoading.value = false
-    })
 })
 </script>
 
