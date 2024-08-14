@@ -76,14 +76,26 @@ const downloadOrView = computed(() => {
     ?.replace('{spreadsheetUrl}', `https://docs.google.com/spreadsheets/d/${props.spreadsheetId}`)
     ?.replaceAll('<a ', '<a class="link" ')
 })
+
+const backUrl = computed(() => {
+  return props.i18n.locale === 'en'
+    ? '/about'
+    : `/${props.i18n.locale}/about`
+})
+
+const siteUrl = computed(() => {
+  return props.i18n.locale === 'en'
+    ? '/'
+    : `/${props.i18n.locale}`
+})
 </script>
 
 <template>
-  <PageHeader logoUrl="/img/logo.png">
+  <PageHeader logoUrl="/img/logo.png" :siteUrl="siteUrl">
     <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
     <div class="leading-relaxed">
       {{ i18n.description }}
-      <a href="about" class="link">
+      <a :href="backUrl" class="link">
         {{ i18n.learnMore }}
       </a>
     </div>

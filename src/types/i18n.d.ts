@@ -1,5 +1,6 @@
 export type I18N = {
   locale?: string,
+  lawForPalestine?: string,
   title?: string,
   description?: string,
   aboutDatabase?: string,

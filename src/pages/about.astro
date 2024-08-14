@@ -1,86 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import AboutLayout from "../layouts/AboutLayout.astro";
 import * as i18n from "../i18n/en.md";
 import Content from '../content/about.html'
 
-const title = [i18n.frontmatter.aboutDatabase, "Law for Palestine"].join(" - ");
+const title = [i18n.frontmatter.aboutDatabase, i18n.frontmatter.lawForPalestine].join(" - ");
 ---
 
 <Layout {title} description={i18n.frontmatter.description}>
-  <main class="max-w-3xl mx-auto my-8 p-4 flex flex-col gap-16">
-    <a href="../" class="flex items-center gap-2">
-      <svg
-        width="33"
-        height="9"
-        viewBox="0 0 33 9"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M0.6464 4.85356C0.4512 4.65829 0.4512 4.34171 0.6464 4.14645L3.8284 0.964467C4.0237 0.769204 4.3403 0.769204 4.5355 0.964467C4.7308 1.15973 4.7308 1.47631 4.5355 1.67158L1.7071 4.5L4.5355 7.32843C4.7308 7.52369 4.7308 7.84027 4.5355 8.03554C4.3403 8.2308 4.0237 8.2308 3.8284 8.03554L0.6464 4.85356ZM33 5H1V4H33L33 5Z"
-          fill="currentColor">
-        </path>
-      </svg>
-      {i18n.frontmatter.back}
-    </a>
-    <img src="/img/logo.png" class="max-w-lg">
-    <div class="about-content flex flex-col gap-6">
-      <Content />
-    </div>
-  </main>
+  <AboutLayout back={i18n.frontmatter.back}>
+    <Content />
+  </AboutLayout>
 </Layout>
-
-<style is:global>
-  .about-content {
-
-    & h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-
-    & h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-
-    & h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-
-    & h4 {
-      font-size: 1rem;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-
-    & p {
-      line-height: 1.7;
-    }
-
-    & a {
-      color: var(--highlight);
-      font-weight: 700;
-      text-decoration: underline;
-      text-decoration-thickness: 0.1em;
-
-      &:hover {
-        color: var(--highlight-hover);
-      }
-
-      &:focus-within {
-        outline: 2px solid;
-        outline-offset: 2px;
-        text-decoration: none;
-      }
-    }
-
-    & blockquote {
-      margin-inline-start: 2em;
-    }
-  }
-</style>

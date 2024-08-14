@@ -6,6 +6,7 @@ import { useI18N } from '../utilities/useI18N'
 
 const props = defineProps({
   logoUrl: String,
+  siteUrl: String,
 })
 
 const isDesktop = () => document.body.clientWidth >= 1280
@@ -36,7 +37,7 @@ onMounted(() => {
 <template>
   <header class="header">
     <h1 class="sr-only">{{ i18n.title }}</h1>
-    <a class="header-logo focus-visible-inside" href="/">
+    <a class="header-logo focus-visible-inside" :href="siteUrl">
       <img alt="" :src="logoUrl" width="514" height="64" />
     </a>
     <button
