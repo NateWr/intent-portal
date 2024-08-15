@@ -154,9 +154,7 @@ watch(matchingOptions, () => focusedOption.value = 0)
   top: calc(100% - 1px);
   left: 1rem;
   right: 1rem;
-  padding: 0.5rem;
   background: var(--bg);
-  border: 1px solid var(--text);
   z-index: 999;
   transform: scale(0);
   transform-origin: top left;
@@ -164,6 +162,8 @@ watch(matchingOptions, () => focusedOption.value = 0)
 }
 
 .autocomplete-listbox-open {
+  padding: 0.5rem;
   transform: scale(1);
+  border: 1px solid var(--text);
 }
 </style>
