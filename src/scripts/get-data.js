@@ -60,7 +60,7 @@ const statements = rows.slice(1)
 )
 
 try {
-  fs.writeFileSync('./public/statements.json', JSON.stringify(statements, null, 2))
+  fs.writeFileSync('./public/statements.json', JSON.stringify(statements))
 } catch (err) {
   throw new Error(err)
 }
