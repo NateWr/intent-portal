@@ -1,7 +1,5 @@
 import { computed, onMounted, watch, type Ref } from "vue";
-import { useI18N } from "./useI18N";
 import type { Filter } from "../types/filter";
-import type { Statement } from "../types/statement";
 
 type Params = {
   o?: string,
@@ -13,11 +11,7 @@ type Params = {
 
 const SEPARATOR = '|'
 
-const { getI18N } = useI18N()
-const i18n = getI18N()
-
 export const useUrlParams = (
-  statements: Ref<Statement[]>,
   persons: Ref<Filter[]>,
   sectors: Ref<Filter[]>,
   themes: Ref<Filter[]>,

@@ -5,7 +5,6 @@ import type { Statement } from "../types/statement";
 import debounce from "debounce";
 import slugify from "@sindresorhus/slugify";
 import MiniSearch from "minisearch";
-import { useUrlParams } from "./useUrlParams";
 
 export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
 

@@ -56,7 +56,6 @@ const {
 } = useFilters(i18n, statements)
 
 const { queryString } = useUrlParams(
-  statements,
   persons,
   sectors,
   themes,

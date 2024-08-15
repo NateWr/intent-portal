@@ -47,7 +47,7 @@ const doc = await docs.documents
   })
 
 try {
-  fs.writeFileSync('./src/content/about.html', doc)
+  fs.writeFileSync('./src/html/about.html', doc)
 } catch (err) {
   throw new Error(err)
 }
