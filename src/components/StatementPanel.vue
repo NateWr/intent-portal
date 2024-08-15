@@ -48,13 +48,13 @@ const tags = computed(() => {
   ].filter(v => v)
 })
 
-const regex = new RegExp(`(${props.searchPhrase})`, 'gi')
+const regex = computed(() => new RegExp(`(${props.searchPhrase})`, 'gi'))
 
 const searchMatch = (str: string) => {
   if (!props.searchPhrase) {
     return str
   }
-  return str.replace(regex, "<mark class=\"statement-searched-phrase\">$1</mark>")
+  return str.replaceAll(regex.value, "<mark class=\"statement-searched-phrase\">$1</mark>")
 }
 
 const detailsSearchMatch = computed(() => searchMatch(props.statement?.details ?? ''))
