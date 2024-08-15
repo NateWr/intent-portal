@@ -127,18 +127,18 @@ const tags = computed(() => {
 }
 
 .statement-source-permalink {
-  color: var(--highlight);
-  border-color: var(--highlight);
+  color: var(--link);
+  border-color: var(--link);
 
   &:hover {
-    color: var(--highlight-hover);
-    border-color: var(--highlight-hover);
+    color: var(--link-hover);
+    border-color: var(--link-hover);
   }
 
   &:focus-visible {
-    outline: 1px solid var(--highlight);
-    color: var(--highlight);
-    border-color: var(--highlight);
+    outline: 1px solid var(--link);
+    color: var(--link);
+    border-color: var(--link);
   }
 }
 

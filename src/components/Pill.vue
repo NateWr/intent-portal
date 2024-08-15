@@ -27,7 +27,7 @@ defineProps({
   text-align: initial;
 
   &:hover {
-    background: var(--lightest-grey);
+    background: var(--highlight-soft);
   }
 
   &:focus-visible {

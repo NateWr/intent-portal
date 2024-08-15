@@ -3,7 +3,7 @@ import { computed, ref, watch, type PropType } from 'vue'
 import Pill from './Pill.vue'
 import IconMinus from './icons/IconMinus.vue'
 import IconPlus from './icons/IconPlus.vue'
-import IconSearch from './icons/IconSearch.vue'
+import IconPeople from './icons/IconPeople.vue'
 import { useI18N } from '../utilities/useI18N'
 import type { Filter } from '../types/filter'
 
@@ -90,7 +90,7 @@ watch(matchingOptions, () => focusedOption.value = 0)
   <div @keyup.down="keyDown" @keyup.up="keyUp">
     <div class="sr-only" role="status" aria-atomic="true" aria-live="polite" v-html="i18n.autocompletePrompt" />
     <div class="input-wrapper">
-      <IconSearch aria-hidden="true" />
+      <slot name="icon" />
       <input
         :aria-expanded="matchingOptions.length > 0"
         :aria-owns="listboxId"

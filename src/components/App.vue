@@ -7,6 +7,7 @@ import Autocomplete from './Autocomplete.vue'
 import OrderBy from './OrderBy.vue'
 import Toolbar from './Toolbar.vue'
 import Spinner from './Spinner.vue'
+import IconPeople from './icons/IconPeople.vue'
 import IconSearch from './icons/IconSearch.vue'
 import { useI18N } from '../utilities/useI18N'
 import { useFilters } from '../utilities/useFilters'
@@ -136,7 +137,11 @@ const siteUrl = computed(() => {
           :selectedOptions="selectedPersons"
           :selectedOptionSlugs="selectedPersonSlugs"
           @toggle="togglePerson"
-        />
+        >
+          <template v-slot:icon>
+            <IconPeople aria-hidden="true" />
+          </template>
+        </Autocomplete>
       </div>
       <div class="mobile-only flex flex-col gap-2">
         <h3 class="text-sm font-extrabold uppercase tracking-widest">
@@ -313,7 +318,7 @@ const siteUrl = computed(() => {
     background: transparent;
 
     & .link {
-      color: var(--highlight);
+      color: var(--link);
     }
   }
 }

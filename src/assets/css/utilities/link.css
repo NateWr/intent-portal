@@ -1,11 +1,11 @@
 .link {
-  color: var(--highlight);
+  color: var(--link);
   font-weight: 700;
   text-decoration: underline;
   text-decoration-thickness: 0.1em;
 
   &:hover {
-    color: var(--highlight-hover);
+    color: var(--link-hover);
   }
 
   &:focus-within {
