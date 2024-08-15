@@ -49,7 +49,7 @@ onMounted(() => {
       <IconFilter aria-hidden="true" focusable="false" />
     </button>
     <Transition name="header-panel">
-      <div v-if="showMenu" class="header-panel">
+      <div v-if="showMenu" class="header-panel focus-visible-inside">
         <slot />
       </div>
     </Transition>
@@ -64,7 +64,7 @@ onMounted(() => {
   width: 100%;
   height: 3rem;
   z-index: 9999;
-  background: white;
+  background: var(--bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -97,7 +97,7 @@ onMounted(() => {
   top: 3rem;
   width: 100%;
   max-height: calc(100vh - 3rem);
-  overflow-y: scroll;
+  overflow-y: auto;
   transition: all 0.3s;
   transform-origin: top right;
   transform: scale(1);
@@ -106,8 +106,8 @@ onMounted(() => {
   flex-direction: column;
   gap: 2rem;
   padding: .5rem;
-  padding-bottom: 2rem;
-  background: white;
+  padding-bottom: 6rem;
+  background: var(--bg);
   border: none;
   border-bottom: 2px solid var(--highlight);
 }
@@ -153,7 +153,7 @@ onMounted(() => {
     border: none;
     padding: 1.5rem;
     /* Allow space for the autocomplete dropdown (@see MAX_OPTIONS in Autocomplete.vue) */
-    padding-bottom: 320px;
+    padding-bottom: 240px;
   }
 }
 </style>

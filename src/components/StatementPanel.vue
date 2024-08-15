@@ -48,7 +48,7 @@ const tags = computed(() => {
   <li class="statement flex flex-col gap-6">
     <h3 class="sr-only">{{ statement.dateFormatted }}, {{ statement.person }}, {{ statement.position }}</h3>
     <div class="flex flex-start items-center justify-between">
-      <div v-if="statement.dateFormatted" class="font-light uppercase">
+      <div class="font-light uppercase">
         {{ statement.dateFormatted }}
       </div>
       <div v-if="statement.sources.length || statement.permalink" class="flex items-center gap-2">
@@ -101,7 +101,7 @@ const tags = computed(() => {
 
 <style>
 .statement {
-  background: white;
+  background: var(--bg);
   padding: 1rem;
 }
 

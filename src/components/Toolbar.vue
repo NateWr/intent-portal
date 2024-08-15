@@ -27,7 +27,7 @@
     height: auto;
     transform: none;
     padding: 0.75rem;
-    background: white;
+    background: var(--bg);
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: var(--border-rounded);
     font-size: 1rem;

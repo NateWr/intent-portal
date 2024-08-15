@@ -155,7 +155,7 @@ watch(matchingOptions, () => focusedOption.value = 0)
   left: 1rem;
   right: 1rem;
   padding: 0.5rem;
-  background: white;
+  background: var(--bg);
   border: 1px solid var(--text);
   z-index: 999;
   transform: scale(0);

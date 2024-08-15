@@ -309,7 +309,7 @@ const siteUrl = computed(() => {
   }
 
   .count-showing {
-    color: black;
+    color: var(--text);
     background: transparent;
 
     & .link {
