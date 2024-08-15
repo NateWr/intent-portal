@@ -20,6 +20,9 @@
   --bg-highlight-hover: var(--light-red);
   --text-highlight: white;
 
+  --bg-searched-phrase: #FFE868;
+  --text-searched-phrase: black;
+
   --border-rounded: 99999px;
 }
 

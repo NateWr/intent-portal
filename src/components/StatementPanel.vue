@@ -11,6 +11,10 @@ const props = defineProps({
     type: Object as PropType<Statement>,
     required: true,
   },
+  searchPhrase: {
+    type: Object as PropType<string>,
+    required: true,
+  },
   sectors: {
     type: Object as PropType<Filter[]>,
     required: true,
@@ -43,6 +47,19 @@ const tags = computed(() => {
     ...themes
   ].filter(v => v)
 })
+
+const regex = new RegExp(`(${props.searchPhrase})`, 'gi')
+
+const searchMatch = (str: string) => {
+  if (!props.searchPhrase) {
+    return str
+  }
+  return str.replace(regex, "<mark class=\"statement-searched-phrase\">$1</mark>")
+}
+
+const detailsSearchMatch = computed(() => searchMatch(props.statement?.details ?? ''))
+const personSearchMatch = computed(() => searchMatch(props.statement?.person ?? ''))
+const positionSearchMatch = computed(() => searchMatch(props.statement?.position ?? ''))
 </script>
 <template>
   <li class="statement flex flex-col gap-6">
@@ -78,15 +95,19 @@ const tags = computed(() => {
       class="font-medium break-words"
       :class="fontSize"
       v-if="statement.details"
-      v-html="statement.details"
+      v-html="detailsSearchMatch"
     />
     <div class="flex flex-col gap-1">
-      <div v-if="statement.person" class="text-xl font-extrabold leading-snug">
-        {{ statement.person }}
-      </div>
-      <div v-if="statement.position" class="text-sm leading-normal">
-        {{ statement.position }}
-      </div>
+      <div
+        v-if="personSearchMatch"
+        class="text-xl font-extrabold leading-snug"
+        v-html="personSearchMatch"
+      />
+      <div
+        v-if="positionSearchMatch"
+        class="text-sm leading-normal"
+        v-html="positionSearchMatch"
+      />
     </div>
     <div
       v-if="tags.length"
@@ -148,5 +169,10 @@ const tags = computed(() => {
   border-radius: var(--border-rounded);
   font-weight: 500;
   white-space: nowrap;
+}
+
+.statement-searched-phrase {
+  background: var(--bg-searched-phrase);
+  color: var(--text-searched-phrase);
 }
 </style>

@@ -228,6 +228,7 @@ const siteUrl = computed(() => {
         :statement="statement"
         :sectors="sectors"
         :themes="themes"
+        :searchPhrase="debouncedSearchPhrase"
       />
     </ul>
     <template v-if="isLoading">
