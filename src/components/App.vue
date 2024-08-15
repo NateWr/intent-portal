@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, type PropType } from 'vue'
+import { computed, watch, type PropType } from 'vue'
 import PageHeader from './PageHeader.vue'
 import StatementPanel from './StatementPanel.vue'
 import FilterGroup from './FilterGroup.vue'
@@ -54,7 +54,7 @@ const {
   clearFilters
 } = useFilters(i18n, statements)
 
-useUrlParams(
+const { queryString } = useUrlParams(
   statements,
   persons,
   sectors,
@@ -69,6 +69,10 @@ useUrlParams(
   debouncedSearchPhrase,
   orderBy,
 )
+
+watch(queryString, () => {
+  window.scrollTo(0, 0,)
+})
 
 const downloadOrView = computed(() => {
   return i18n.value.downloadOrView
