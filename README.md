@@ -14,7 +14,7 @@ SPREADSHEET_ID="1uI_xGjJoCHi...YxcRwE_Q"
 ABOUT_DOC_ID="2oA_jOchIXg...YxcRwE_Q"
 ```
 
-Get the data.
+Update the data if needed.
 
 ```
 npm run get-data
