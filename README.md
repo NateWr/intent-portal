@@ -32,6 +32,8 @@ Build the site for production.
 npm run build
 ```
 
+The site relies on the `SPREADSHEET_ID` in the `.env` file when it is built. If you are hosting with a third-party service, like Netlify or Vercel, you will need to configure this variable with the hosting provider.
+
 ## Localization
 
 All UI strings are stored in `./src/i18n/en.md` to be translated in the future.
