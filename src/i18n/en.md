@@ -32,6 +32,7 @@ searchByName: Search by name
 statements: Statements
 noStatementsFound: No statements were found matching these parameters.
 note: "Note: "
+noDate: No Date
 sources: Sources
 permalink: Permalink
 orderBy: Order By

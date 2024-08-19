@@ -12,7 +12,7 @@ const props = defineProps({
     required: true,
   },
   searchPhrase: {
-    type: Object as PropType<string>,
+    type: String,
     required: true,
   },
   sectors: {

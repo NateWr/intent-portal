@@ -31,6 +31,7 @@ export type I18N = {
   statements?: string,
   noStatementsFound?: string,
   note?: string,
+  noDate?: string,
   sources?: string,
   permalink?: string,
   orderBy?: string,

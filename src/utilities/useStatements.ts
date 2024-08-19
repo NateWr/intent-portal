@@ -9,8 +9,10 @@ export const useStatements = () => {
   const { getI18N } = useI18N()
   const i18n = getI18N()
 
+  const NO_DATE = 'No Date'
+
   const getDateNumber = (date: string) => {
-    return date.trim()
+    return date.trim() && date.trim() !== NO_DATE
       ? parseInt(
           date
             .split('/')
@@ -25,8 +27,13 @@ export const useStatements = () => {
     if (!date) {
       return ''
     }
-    const dateParts = date.split('/')
-    return new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`)
+    if (date === NO_DATE) {
+      return i18n.value.noDate
+    }
+    const dateParts = date
+      .split('/')
+      .map(str => str.padStart(2, '0'))
+    return new Date(`${dateParts[2].padStart(4, '20')}-${dateParts[1]}-${dateParts[0]}`)
       .toLocaleDateString(i18n.value.locale, {
         day: 'numeric',
         month: 'short',
