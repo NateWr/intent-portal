@@ -37,6 +37,7 @@ const statements = rows.slice(1)
       position: statement[getCol('Position')] ?? '',
       sector: slugify(statement[getCol('Sector')] ?? ''),
       details: statement[getCol('Details')] ?? '',
+      notes: statement[getCol("Context (Writer's notes)")] ?? '',
       themes: statement[getCol('Themes')]?.split(',')?.map((theme) => slugify(theme)) ?? [],
       permalink: statement[getCol('Permalink')] ?? '',
       sources: [

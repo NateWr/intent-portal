@@ -14,17 +14,33 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
       title: i18n.value?.civilianHarm ?? '',
     },
     {
+      slug: 'genocidal-intent',
+      title: i18n.value?.genocidalIntent ?? '',
+    },
+    {
+      slug: 'forced-displacement',
+      title: i18n.value?.forcedDisplacement ?? '',
+    },
+    {
+      slug: 'collective-punishment',
+      title: i18n.value?.collectivePunishment ?? '',
+    },
+    {
+      slug: 'dehumanisation',
+      title: i18n.value?.dehumanisation ?? '',
+    },
+    {
+      slug: 'destruction',
+      title: i18n.value?.destruction ?? '',
+    },
+    {
       slug: 'starvation',
       title: i18n.value?.starvation ?? '',
     },
     {
-      slug: 'infrastructure',
-      title: i18n.value?.destructionInfrastructure ?? '',
+      slug: 'torture',
+      title: i18n.value?.torture ?? '',
     },
-    {
-      slug: 'forced-displacement',
-      title: i18n.value?.annexationDisplacement ?? '',
-    }
   ])
 
   const sectors = ref<Filter[]>([

@@ -10,9 +10,13 @@ learnMore: Learn more
 themes: Themes
 allThemes: All Themes
 civilianHarm: Civilian Harm
+genocidalIntent: Genocidal Intent
+forcedDisplacement: Forced Displacement
+collectivePunishment: Collective Punishment
+dehumanisation: Dehumanisation
+destruction: Destruction
 starvation: Starvation
-destructionInfrastructure: Destruction of infrastructure
-annexationDisplacement: Annexation/Forced Displacement
+torture: Torture
 sectors: Sectors
 allSectors: All Sectors
 armedForces: Armed Forces
