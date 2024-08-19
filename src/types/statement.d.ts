@@ -7,6 +7,7 @@ export type Statement = {
   position: string,
   sector: string,
   details: string,
+  notes: string,
   themes: string[],
   permalink: string,
   sources: Object<{url: string, domain: string}>[],

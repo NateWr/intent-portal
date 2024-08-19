@@ -31,6 +31,7 @@ findPersons: Find statements from an individual.
 searchByName: Search by name
 statements: Statements
 noStatementsFound: No statements were found matching these parameters.
+note: "Note: "
 sources: Sources
 permalink: Permalink
 orderBy: Order By

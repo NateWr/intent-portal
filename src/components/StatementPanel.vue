@@ -58,6 +58,7 @@ const searchMatch = (str: string) => {
 }
 
 const detailsSearchMatch = computed(() => searchMatch(props.statement?.details ?? ''))
+const notesSearchMatch = computed(() => searchMatch(props.statement?.notes ?? ''))
 const personSearchMatch = computed(() => searchMatch(props.statement?.person ?? ''))
 const positionSearchMatch = computed(() => searchMatch(props.statement?.position ?? ''))
 </script>
@@ -117,6 +118,10 @@ const positionSearchMatch = computed(() => searchMatch(props.statement?.position
         {{ tag }}
       </span>
     </div>
+    <div v-if="notesSearchMatch" class="statement-notes text-sm leading-relaxed break-words">
+      <strong>{{ i18n.note }}</strong>
+      <span v-html="notesSearchMatch" />
+    </div>
   </li>
 </template>
 
@@ -174,5 +179,10 @@ const positionSearchMatch = computed(() => searchMatch(props.statement?.position
 .statement-searched-phrase {
   background: var(--bg-searched-phrase);
   color: var(--text-searched-phrase);
+}
+
+.statement-notes {
+  padding: 1.5rem;
+  background: var(--bg-shaded);
 }
 </style>

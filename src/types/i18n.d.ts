@@ -30,6 +30,7 @@ export type I18N = {
   searchByName?: string,
   statements?: string,
   noStatementsFound?: string,
+  note?: string,
   sources?: string,
   permalink?: string,
   orderBy?: string,

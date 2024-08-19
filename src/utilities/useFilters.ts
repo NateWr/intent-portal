@@ -129,7 +129,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
 
   watch(searchPhrase, debounce(() => debouncedSearchPhrase.value = searchPhrase.value.trim().toLocaleLowerCase(), 250))
   const minisearch = new MiniSearch({
-    fields: ['person', 'position', 'details'],
+    fields: ['person', 'position', 'details', 'notes'],
     storeFields: ['id'],
   })
   watch(statements, (newValue) => {
