@@ -95,7 +95,7 @@ const siteUrl = computed(() => {
 </script>
 
 <template>
-  <PageHeader logoUrl="/img/logo.png" :siteUrl="siteUrl">
+  <PageHeader :siteUrl="siteUrl">
     <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
     <div class="leading-relaxed">
       {{ i18n.description }}

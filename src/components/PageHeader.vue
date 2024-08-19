@@ -6,7 +6,6 @@ import IconFilter from './icons/IconFilter.vue'
 import { useI18N } from '../utilities/useI18N'
 
 const props = defineProps({
-  logoUrl: String,
   siteUrl: String,
 })
 
@@ -39,7 +38,10 @@ onMounted(() => {
   <header class="header">
     <h1 class="sr-only">{{ i18n.title }}</h1>
     <a class="header-logo focus-visible-inside" :href="siteUrl">
-      <img alt="" :src="logoUrl" width="514" height="64" />
+      <picture>
+        <source srcset="/img/logo-bw.png" media="(prefers-color-scheme: dark)">
+        <img alt="" src="/img/logo.png" width="518" height="64" />
+      </picture>
     </a>
     <button
       class="header-button focus-visible-inside"
