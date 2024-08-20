@@ -24,7 +24,10 @@ const { back, backUrl = '/' } = Astro.props;
     </svg>
     {back}
   </a>
-  <img src="/img/logo.png" class="max-w-lg">
+  <picture>
+    <source srcset="/img/logo-bw.png" media="(prefers-color-scheme: dark)">
+    <img alt="" src="/img/logo.png" width="518" height="64" class="max-w-lg" />
+  </picture>
   <div class="about-content flex flex-col gap-6">
     <slot />
   </div>
