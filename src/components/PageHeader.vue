@@ -60,7 +60,9 @@ onMounted(() => {
     <Transition name="header-panel">
       <div v-if="showMenu" class="header-panel focus-visible-inside">
         <slot />
-        <Button @click="showMenu = !showMenu">Close and Apply Filters</Button>
+        <div class="mobile-only">
+          <Button class="w-full" @click="showMenu = !showMenu">Close and Apply Filters</Button>
+        </div>
       </div>
     </Transition>
   </header>
