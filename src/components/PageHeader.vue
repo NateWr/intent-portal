@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import debounce from 'debounce'
 import { onMounted, ref, watch } from 'vue'
+import Button from './Button.vue'
 import IconClose from './icons/IconClose.vue'
 import IconFilter from './icons/IconFilter.vue'
 import { useI18N } from '../utilities/useI18N'
@@ -59,6 +60,7 @@ onMounted(() => {
     <Transition name="header-panel">
       <div v-if="showMenu" class="header-panel focus-visible-inside">
         <slot />
+        <Button @click="showMenu = !showMenu">Close and Apply Filters</Button>
       </div>
     </Transition>
   </header>
