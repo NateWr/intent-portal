@@ -153,7 +153,7 @@ const siteUrl = computed(() => {
           @order-by="setOrderBy"
         />
       </div>
-      <form class="mobile-only flex flex-col gap-2">
+      <form class="mobile-only flex flex-col gap-2" @submit.prevent="null">
         <h3 class="text-sm font-extrabold uppercase tracking-widest">
           {{ i18n.search }}
         </h3>
@@ -197,7 +197,7 @@ const siteUrl = computed(() => {
         @order-by="setOrderBy"
       />
     </div>
-    <form class="desktop-only flex items-center">
+    <form class="desktop-only flex items-center" @submit.prevent="null">
       <label for="search-toolbar" class="sr-only">{{ i18n.search }}</label>
       <div class="input-wrapper">
         <IconSearch aria-hidden="true" />
