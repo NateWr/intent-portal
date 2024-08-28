@@ -71,7 +71,12 @@ const { queryString } = useUrlParams(
 )
 
 watch(queryString, () => {
-  window.scrollTo(0, 0,)
+  // Don't automatically scroll to top on mobile
+  // devices to prevent iOS bug where the scroll
+  // is applied to the open dropdown panel
+  if (document.body.clientWidth >= 1280) {
+    window.scrollTo(0, 0)
+  }
 })
 
 const downloadOrView = computed(() => {

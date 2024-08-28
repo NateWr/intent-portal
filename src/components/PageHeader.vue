@@ -13,18 +13,29 @@ const props = defineProps({
 const isDesktop = () => document.body.clientWidth >= 1280
 const showMenu = ref<boolean>(isDesktop())
 
-const setBodyOverflow = (value: boolean) => {
+const blockScroll = (value: boolean) => {
+  // Set the class on the <main> element in order
+  // to fix iOS bug.
+  const $main = document.querySelector('main')
+  if (!$main) {
+    return
+  }
   if (value && !isDesktop()) {
-    document.body.classList.add('overflow-hidden')
+    $main.classList.add('block-scroll')
   } else {
-    document.body.classList.remove('overflow-hidden')
+    $main.classList.remove('block-scroll')
   }
 }
 
 const { getI18N } = useI18N()
 const i18n = getI18N()
 
-watch(showMenu, setBodyOverflow)
+watch(showMenu, blockScroll)
+watch(showMenu, (value) => {
+  if (!value) {
+    window.scrollTo(0, 0)
+  }
+})
 
 onMounted(() => {
   window.addEventListener('resize', debounce(() => {
@@ -127,6 +138,11 @@ onMounted(() => {
 .header-panel-enter-from,
 .header-panel-leave-to {
   transform: scale(0);
+}
+
+.block-scroll {
+  overflow: hidden;
+  max-height: calc(100vh - 3rem);
 }
 
 @media (min-width: 1280px) {
