@@ -45,6 +45,7 @@ search: Search
 searchStatements: Search statements
 searchAndFilter: Search and Filter
 loading: Loading
+credit: Data collected and maintained by <a href="{l4pUrl}">Law for Palestine</a>. Research portal created in partnership with <a href="{vpUrl}">Visualizing Palestine</a>.
 downloadOrView: Download the <a href="{dataUrl}">full dataset</a> or view the <a href="{spreadsheetUrl}">spreadsheet</a>.
 selected: Selected
 autocompleteUnselect: Press Enter or Space to remove selection

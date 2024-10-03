@@ -79,8 +79,15 @@ watch(queryString, () => {
   }
 })
 
+const credit = computed(() => {
+  return i18n.value?.credit
+    ?.replace('{l4pUrl}', 'https://law4palestine.org')
+    ?.replace('{vpUrl}', 'https://visualizingpalestine.org')
+    .replaceAll('<a ', '<a class="link" ')
+})
+
 const downloadOrView = computed(() => {
-  return i18n.value.downloadOrView
+  return i18n.value?.downloadOrView
     ?.replace('{dataUrl}', `https://docs.google.com/spreadsheets/d/${props.spreadsheetId}/export?format=csv`)
     ?.replace('{spreadsheetUrl}', `https://docs.google.com/spreadsheets/d/${props.spreadsheetId}`)
     ?.replaceAll('<a ', '<a class="link" ')
@@ -174,6 +181,7 @@ const siteUrl = computed(() => {
           >
         </div>
       </form>
+      <div v-html="credit" />
       <div v-html="downloadOrView" />
     </div>
   </PageHeader>
