@@ -14,7 +14,7 @@ genocidalIntent: Genocidal Intent
 forcedDisplacement: Forced Displacement
 collectivePunishment: Collective Punishment
 dehumanisation: Dehumanisation
-destruction: Destruction
+destruction: Destruction of Infrastructure
 starvation: Starvation
 torture: Torture
 sectors: Sectors

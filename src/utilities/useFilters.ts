@@ -30,7 +30,7 @@ export const useFilters = (i18n: Ref<I18N>, statements: Ref<Statement[]>) => {
       title: i18n.value?.dehumanisation ?? '',
     },
     {
-      slug: 'destruction',
+      slug: 'destruction-of-infrastructure',
       title: i18n.value?.destruction ?? '',
     },
     {
