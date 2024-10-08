@@ -6,7 +6,7 @@
     "get-data": "node ./src/scripts/get-data.js",
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check --minimumSeverity warning && astro build",
+    "build": "npm run get-data && astro check --minimumSeverity warning && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
