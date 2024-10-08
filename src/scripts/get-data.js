@@ -1,50 +1,40 @@
 import fs from 'fs'
-import { google } from 'googleapis'
-import { spreadsheetId, getCredentials } from './helpers/google.js'
 import slugify from '@sindresorhus/slugify'
+import { parse } from 'csv-parse/sync'
 
-const scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-const auth = getCredentials(scopes)
-const sheets = google.sheets({
-  version: 'v4',
-  auth: auth
-})
+const spreadsheetId = '10Ax4OCTn3JC0dCSxXFBErvJQhXzAtf1iyPtvqadoat4'
+const sheetName = 'Data'
+const url = 'https://docs.google.com/spreadsheets/d/{{ID}}/gviz/tq?tqx=out:csv&sheet={{sheet_name}}'
+  .replace('{{ID}}', spreadsheetId)
+  .replace('{{sheet_name}}', sheetName)
 
-const sheet = await sheets.spreadsheets.values.get({
-  spreadsheetId,
-  range: `A1:AH9999`
-})
-
-const getCol = (col) => {
-  const i = columns.findIndex((c) => c === col)
-  if (i < 0) {
-    throw new Error(`Unable to find ${col}`)
-  }
-  return i
-}
+const rows = await fetch(url)
+  .then(r => r.text())
+  .then(csv => parse(csv, {columns: true, skip_empty_lines: true}))
+  .catch(err => {
+    throw new Error(`Unable to fetch spreadsheet data: ${err}`)
+  })
 
 const REGEX_DOMAIN = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/gi
 
-const rows = sheet?.data?.values ?? []
-const columns = rows.slice(0, 1).flat()
 const statements = rows.slice(1)
-  .filter(row => row[getCol('Details') || row[getCol('Author')]])
+  .filter(row => row['Details' || row['Author']])
   .map((statement, i) => {
     return {
       id: i,
-      date: statement[getCol('Date')] ?? '',
-      person: statement[getCol('Author')] ?? '',
-      position: statement[getCol('Position')] ?? '',
-      sector: slugify(statement[getCol('Sector')] ?? ''),
-      details: statement[getCol('Details')] ?? '',
-      notes: statement[getCol("Context (Writer's notes)")] ?? '',
-      themes: statement[getCol('Themes')]?.split(',')?.map((theme) => slugify(theme)) ?? [],
-      permalink: statement[getCol('Permalink')] ?? '',
+      date: statement['Date'] ?? '',
+      person: statement['Author'] ?? '',
+      position: statement['Position'] ?? '',
+      sector: slugify(statement['Sector'] ?? ''),
+      details: statement['Details'] ?? '',
+      notes: statement["Context (Writer's notes)"] ?? '',
+      themes: statement['Themes']?.split(',')?.map((theme) => slugify(theme)) ?? [],
+      permalink: statement['Permalink'] ?? '',
       sources: [
-          statement[getCol('Source')] ?? '',
-          statement[getCol('Link 2')] ?? '',
-          statement[getCol('Link 3')] ?? '',
-          statement[getCol('Link 4')] ?? ''
+          statement['Source'] ?? '',
+          statement['Link 2'] ?? '',
+          statement['Link 3'] ?? '',
+          statement['Link 4'] ?? ''
         ]
         .filter((s) => s)
         .map(url => {

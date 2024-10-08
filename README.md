@@ -6,15 +6,7 @@ A research portal for Law for Palestine's database of Israeli incitement to geno
 
 This is a static site built with [Astro](https://astro.build/), [Vue](https://vuejs.org/), and [Node](https://nodejs.org). Run the following steps after you have cloned the repository.
 
-Copy the `.env.example` file to `.env` and enter the details.
-
-```
-GOOGLE_SERVICE_ACCOUNT="eyJ0e...29tIn0="
-SPREADSHEET_ID="1uI_xGjJoCHi...YxcRwE_Q"
-ABOUT_DOC_ID="2oA_jOchIXg...YxcRwE_Q"
-```
-
-Update the data if needed.
+Update the data.
 
 ```
 npm run get-data
@@ -31,8 +23,6 @@ Build the site for production.
 ```
 npm run build
 ```
-
-The site relies on the `SPREADSHEET_ID` in the `.env` file when it is built. If you are hosting with a third-party service, like Netlify or Vercel, you will need to configure this variable with the hosting provider.
 
 ## Localization
 
