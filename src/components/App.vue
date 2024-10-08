@@ -93,12 +93,6 @@ const downloadOrView = computed(() => {
     ?.replaceAll('<a ', '<a class="link" ')
 })
 
-const backUrl = computed(() => {
-  return props.i18n.locale === 'en'
-    ? '/about'
-    : `/${props.i18n.locale}/about`
-})
-
 const siteUrl = computed(() => {
   return props.i18n.locale === 'en'
     ? '/'
@@ -111,7 +105,7 @@ const siteUrl = computed(() => {
     <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
     <div class="leading-relaxed">
       {{ i18n.description }}
-      <a :href="backUrl" class="link">
+      <a href="https://law4palestine.org/law-for-palestine-releases-database-with-500-instances-of-israeli-incitement-to-genocide-continuously-updated/" class="link" target="_blank">
         {{ i18n.learnMore }}
       </a>
     </div>
