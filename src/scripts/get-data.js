@@ -1,8 +1,9 @@
 import fs from 'fs'
 import slugify from '@sindresorhus/slugify'
 import { parse } from 'csv-parse/sync'
+import 'dotenv/config'
 
-const spreadsheetId = '10Ax4OCTn3JC0dCSxXFBErvJQhXzAtf1iyPtvqadoat4'
+const spreadsheetId = process.env.SPREADSHEET_ID
 const sheetName = 'Data'
 const url = 'https://docs.google.com/spreadsheets/d/{{ID}}/gviz/tq?tqx=out:csv&sheet={{sheet_name}}'
   .replace('{{ID}}', spreadsheetId)
