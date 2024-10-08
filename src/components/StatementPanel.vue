@@ -82,6 +82,7 @@ const positionSearchMatch = computed(() => searchMatch(props.statement?.position
           <span class="sr-only">{{ source.domain ? source.domain : source.url }}</span>
         </a>
         <a
+          v-if="statement.permalink"
           class="statement-source statement-source-permalink"
           :href="statement.permalink"
           :title="i18n.permalink"
