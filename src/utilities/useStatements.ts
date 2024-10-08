@@ -38,6 +38,7 @@ export const useStatements = () => {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
+        timeZone: 'UTC',
       })
   }
 
