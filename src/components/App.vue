@@ -105,7 +105,7 @@ const siteUrl = computed(() => {
     <h2 class="sr-only">{{ i18n.searchAndFilter }}</h2>
     <div class="leading-relaxed">
       {{ i18n.description }}
-      <a href="https://law4palestine.org/law-for-palestine-releases-database-with-500-instances-of-israeli-incitement-to-genocide-continuously-updated/" class="link" target="_blank">
+      <a href="https://drive.google.com/file/d/1k6dcKc1DROTFfOTCTY9I3zFuXNPItldM/view" class="link" target="_blank">
         {{ i18n.learnMore }}
       </a>
     </div>
